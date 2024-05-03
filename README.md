@@ -1,2 +1,2 @@
-# CS_35L_24W
+# CS_35L_24S
 Group: CS_35W

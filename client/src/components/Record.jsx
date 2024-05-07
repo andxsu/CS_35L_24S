@@ -83,7 +83,7 @@ export default function Record() {
   // This following section will display the form that takes the input from the user.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Create/Update Employee Record</h3>
+      <h3 className="text-lg font-semibold p-4">Create/Update Order Request</h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
@@ -91,7 +91,7 @@ export default function Record() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-slate-900/10 pb-12 md:grid-cols-2">
           <div>
             <h2 className="text-base font-semibold leading-7 text-slate-900">
-              Employee Info
+              Dining Hall
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-600">
               This information will be displayed publicly so be careful what you
@@ -126,7 +126,7 @@ export default function Record() {
                 htmlFor="position"
                 className="block text-sm font-medium leading-6 text-slate-900"
               >
-                Position
+                Contact
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -135,7 +135,7 @@ export default function Record() {
                     name="position"
                     id="position"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Developer Advocate"
+                    placeholder="Phone Number"
                     value={form.position}
                     onChange={(e) => updateForm({ position: e.target.value })}
                   />
@@ -160,7 +160,7 @@ export default function Record() {
                       htmlFor="positionIntern"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Intern
+                      option
                     </label>
                     <input
                       id="positionJunior"
@@ -175,7 +175,7 @@ export default function Record() {
                       htmlFor="positionJunior"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Junior
+                      option
                     </label>
                     <input
                       id="positionSenior"
@@ -190,7 +190,7 @@ export default function Record() {
                       htmlFor="positionSenior"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Senior
+                      option
                     </label>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export default function Record() {
         </div>
         <input
           type="submit"
-          value="Save Employee Record"
+          value="Save"
           className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
         />
       </form>

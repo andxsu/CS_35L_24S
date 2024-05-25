@@ -8,9 +8,9 @@ const router = express.Router();
 
 //Route that actually handles incoming http "get" requests
 //if the end of our url is just 'users/' and we have a get request:
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => {
     let collection = db.collection("users"); //retrieves the "users" collection from the database.
-    let results = await collection.find({}).toArray();
+    let results = collection.find({});//.toArray();
     res.send(results).status(200);
 });
 

@@ -6,6 +6,11 @@ const Record = (props) => (
     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
       {props.record.dining_hall}
     </td>
+   
+    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+      {props.record.food_item}
+    </td>
+
     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
       {props.record.food_order}
     </td>
@@ -89,10 +94,13 @@ export default function RecordList() {
                   Dining Hall
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                  Menu Item
+                </th>
+                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Order Details
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Notes for
+                  Notes for deliverer
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Action

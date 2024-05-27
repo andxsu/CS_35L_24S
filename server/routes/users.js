@@ -32,6 +32,7 @@ router.get("/:id", async (req, res) => {
 //handles incoming http "post" requests
 router.post("/add", async (req, res) =>{
     const username = req.body.username;
+    const password = req.body.password;
     const address = req.body.address;
     const email = req.body.email;
     const phoneNum = Number(req.body.phoneNum);
@@ -42,6 +43,7 @@ router.post("/add", async (req, res) =>{
 
     const newEntry = {
         username,
+        password,
         address,
         email,
         phoneNum,
@@ -69,6 +71,7 @@ router.patch("/:id", async (req, res) => {
       const updates = {
         $set: {
             username: req.body.username,
+            password: req.body.password,
             address: req.body.address,
             email: req.body.email,
             phoneNum: Number(req.body.phoneNum),

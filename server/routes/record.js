@@ -6,7 +6,7 @@ import db from "../db/connection.js";
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
 
-const collection = db.collection("orders")
+const collection = db.collection("order_list")
 
 // router is an instance of the express router.
 // We use it to define our routes.
@@ -35,8 +35,10 @@ router.post("/", async (req, res) => {
   try {
     let newDocument = {
       dining_hall: req.body.dining_hall,
+      food_item: req.body.food_item,
       food_order: req.body.food_order,
-      notes_for_deliverer: req.body.notes_for_deliverer
+      notes_for_deliverer: req.body.notes_for_deliverer,
+      // creator: req.body.creator
     };
     // let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -54,6 +56,7 @@ router.patch("/:id", async (req, res) => {
     const updates = {
       $set: {
         dining_hall: req.body.dining_hall,
+        food_item: req.body.food_item,
         food_order: req.body.food_order,
         notes_for_deliverer: req.body.notes_for_deliverer
   

@@ -1,16 +1,16 @@
 import express from "express";
 import cors from "cors";
-import records from "./routes/record.js";
+import orders from "./routes/record.js";
 import usersRouter from "./routes/users.js";
 
-const PORT = /*process.env.PORT ||*/ 5000;
+const PORT = process.env.PORT || 5050;
 const app = express();
 
 //const usersRouter = require('./routes/users.js');
 
 app.use(cors());
 app.use(express.json());
-app.use("/record", records);
+app.use("/orders", orders);
 app.use("/users", usersRouter);
 
 // start the Express server

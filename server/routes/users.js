@@ -33,17 +33,18 @@ router.get("/:id", async (req, res) => {
     else res.send(result).status(200);
   });
 
-router.get("/login/:username/:enteredPassword", async (req, res) => {
+router.get("/login/:email/:password", async (req, res) => {
     try{
-        let result = await collection.findOne({ username: req.params.username });
-        let enteredPassword = req.params.enteredPassword;
+        // let query = {email: new ObjectId(req.params.email)}
+        let result = await collection.findOne({ email: req.params.email });
+        let enteredPassword = req.params.password;
 
         if (result){
             let storedPassword = result.password;
             if (enteredPassword != storedPassword)
                 res.status(500).send("Incorrect password")
             else
-                res.status(200).send(result);
+                res.status(200).send("success");
         }
         else{
             res.status(500).send("User not found");

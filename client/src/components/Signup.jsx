@@ -10,7 +10,6 @@ export default function Signup()
         address: "",
         email: "",
         phoneNum: "",
-        venmo: "",
         type: "",
       });
       
@@ -24,6 +23,7 @@ export default function Signup()
       async function onSubmit(e) {
         e.preventDefault();
         const person = { ...form };
+        // console.log(person)
         try {
             let response;
             response = await fetch("http://localhost:5050/users/", {
@@ -33,7 +33,7 @@ export default function Signup()
             },
             body: JSON.stringify(person),
         });
-        console.log(response);
+        // console.log(response);
           
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -47,7 +47,6 @@ export default function Signup()
             address: "",
             email: "",
             phoneNum: "",
-            venmo: "",
             type: "",})
         }
       }
@@ -65,6 +64,7 @@ export default function Signup()
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               name = "username"
               id = "username"
+              required
               placeholder="Enter your username"
               value = {form.username}
               onChange = {(e) => updateForm({username: e.target.value})}
@@ -77,6 +77,7 @@ export default function Signup()
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               name = "password"
               id = "password"
+              required
               placeholder="Enter your password"
               value = {form.password}
               onChange = {(e) => updateForm({password: e.target.value})}
@@ -88,6 +89,7 @@ export default function Signup()
               type="text"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your Venmo username"
+              required
               name = "venmo"
               id = "venmo"
               value = {form.venmo}
@@ -100,6 +102,7 @@ export default function Signup()
               type="text"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your address"
+              required
               name = "address"
               id = "address"
               value = {form.address}
@@ -113,6 +116,7 @@ export default function Signup()
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your email"
               name = "email"
+              required
               id = "email"
               value = {form.email}
               onChange = {(e) => updateForm({email: e.target.value})}
@@ -125,6 +129,7 @@ export default function Signup()
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your phone number"
               name = "phoneNum"
+              required
               id = "phoneNum"
               value = {form.phoneNum}
               onChange = {(e) => updateForm({phoneNum: e.target.value})}
@@ -136,6 +141,7 @@ export default function Signup()
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
             name = "type"
             id = "type"
+            required
             value = {form.type}
             onChange = {(e)=> updateForm({type: e.target.value})}>
               <option value = "">Select</option>

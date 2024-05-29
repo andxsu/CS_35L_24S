@@ -1,6 +1,10 @@
+
+//Note for Aryan: if "nodemon server" doesn't work, try "nodemon ./server/server.js" 
+
 import express from "express";
 import db from "../db/connection.js";
-import { ObjectId } from "mongodb";
+import nodemailer from 'nodemailer';
+import { xxHash32 } from 'js-xxhash';
 const router = express.Router();
 
 //let User = require('../models/users.model');
@@ -20,37 +24,86 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
-    let query = { _id: new ObjectId(req.params.id) };
-    let result = await collection.findOne(query);
+router.get("/login/:username/:enteredPassword", async (req, res) => {
+    try{
+        let result = await collection.findOne({ username: req.params.username });
+        let enteredPassword = req.params.enteredPassword;
 
-    if (!result) res.send("Not found").status(404);
-    else res.send(result).status(200);
+        if (result){
+            let storedPassword = result.password;
+            if (enteredPassword != storedPassword)
+                res.status(500).send("Incorrect password")
+            else
+                res.status(200).send(result);
+        }
+        else{
+            res.status(500).send("User not found");
+        }
+    }
+    catch (error){
+        res.status(500).send(error.message)
+    }
 });
 
+router.get("/:username/forgotPassword", async (req, res) => {
+    //nodemailer setup for emailing functionality
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ucla.cs35w.s24@gmail.com',
+          pass: 'iizapqhxbgnomszd'
+        }
+    });
+
+    //main logic for handling this specific get request
+    try{
+        //retrieve user information based on username
+        let query = await collection.findOne({ username: req.params.username });
+        if (query){ //ensure document exists, otherwise throw error
+            let newPassword = hashPassword(query.username);
+            const updates = {$set: {
+                    password: newPassword,
+                },
+            };
+
+            //Send email
+            transporter.sendMail({
+                from: 'ucla.cs35w.s24@gmail.com',
+                to: query.email.toString(),
+                subject: 'Your password was reset!',
+                html: "Hi from CS35W! We've received a request to rest your password. Your temporary password is: <b>" + newPassword + "</b>.<br>If this wasn't you, please login to your account using this password as soon as possible and change your password.<hr>All the best,<br>The CS35W team."
+              }, function(error, info){
+                if (error) {
+                    res.status(500).send("Error: " + info);
+                } else {
+                    let toSend = collection.updateOne({ username: query.username }, updates); //update database with their new password
+                    res.send(toSend).status(200);
+                }
+              });
+        }
+        else{
+            res.status(500).send("User not found");
+        }
+    }
+    catch (error){
+        res.status(500).send(error.message)
+    }
+});
 
 //handles incoming http "post" requests
-router.post("/add", async (req, res) =>{
+router.post("/", async (req, res) =>{
     const username = req.body.username;
-    const password = req.body.password;
     const address = req.body.address;
     const email = req.body.email;
     const phoneNum = Number(req.body.phoneNum);
-    const venmo = req.body.venmo;
-    const type = req.body.type;
-    const previous_orders = req.body.type === "buyer" ? [] : undefined;
-    const previous_deliveries = req.body.type === "delivery" ? [] : undefined;
+    const password = req.body.password;
 
     const newEntry = {
         username,
-        password,
         address,
         email,
         phoneNum,
-        venmo,
-        type,
-        previous_orders,
-        previous_deliveries
+        password
     };
 
     try {
@@ -65,44 +118,12 @@ router.post("/add", async (req, res) =>{
     }
 });
 
-router.patch("/:id", async (req, res) => {
-    try {
-      const query = { _id: new ObjectId(req.params.id) };
-      const updates = {
-        $set: {
-            username: req.body.username,
-            password: req.body.password,
-            address: req.body.address,
-            email: req.body.email,
-            phoneNum: Number(req.body.phoneNum),
-            venmo: req.body.venmo,
-            type: req.body.type,
-            previous_orders: req.body.type === "buyer" ? [] : undefined,
-            previous_deliveries: req.body.type === "delivery" ? [] : undefined,
-        },
-      };
-  
-      let collection = await collection;
-      let result = await collection.updateOne(query, updates);
-      res.send(result).status(200);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error updating record");
-    }
-  });
-  
-  // This section will help you delete a user
-  router.delete("/:id", async (req, res) => {
-    try {
-      const query = { _id: new ObjectId(req.params.id) };
-      let result = await collection.deleteOne(query);
-  
-      res.send(result).status(200);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error deleting record");
-    }
-  });
-
 export default router;
 
+//helper functions:
+function hashPassword(username){
+    let currentdate = new Date();
+    let time = currentdate.getUTCMilliseconds().toString();
+    let hashNum = xxHash32(username + time, 0);
+    return hashNum.toString(16);
+}

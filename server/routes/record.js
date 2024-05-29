@@ -38,7 +38,8 @@ router.post("/", async (req, res) => {
       food_item: req.body.food_item,
       food_order: req.body.food_order,
       notes_for_deliverer: req.body.notes_for_deliverer,
-      // creator: req.body.creator
+      creator: req.body.creator,
+      completed: req.body.completed
     };
     // let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -58,8 +59,9 @@ router.patch("/:id", async (req, res) => {
         dining_hall: req.body.dining_hall,
         food_item: req.body.food_item,
         food_order: req.body.food_order,
-        notes_for_deliverer: req.body.notes_for_deliverer
-  
+        notes_for_deliverer: req.body.notes_for_deliverer,
+        creator: req.body.creator,
+        completed: req.body.completed
       },
     };
 

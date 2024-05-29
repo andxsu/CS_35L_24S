@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "js-xxhash": "^4.0.0",
+    "nodemailer": "^6.9.13"
+  }
+}

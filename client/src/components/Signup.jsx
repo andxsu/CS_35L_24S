@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 
 export default function Signup()
 {
@@ -12,7 +12,7 @@ export default function Signup()
         phoneNum: "",
         type: "",
       });
-      
+      const navigate = useNavigate()
       function updateForm(value) {
         return setForm((prev) => {
           return { ...prev, ...value };
@@ -34,7 +34,9 @@ export default function Signup()
             body: JSON.stringify(person),
         });
         // console.log(response);
-          
+          if (response.ok){
+            navigate("/orders")
+          }
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -48,6 +50,7 @@ export default function Signup()
             email: "",
             phoneNum: "",
             type: "",})
+
         }
       }
 

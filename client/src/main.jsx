@@ -7,6 +7,8 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -40,6 +42,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/register",
+    element: <App />,
+    children: [
+      {
+        path: "/register",
+        element: <Signup />,
+      }
+    ]
+  },
+  {
+    path: "/login",
+    element: <App />,
+    children: [
+      {
+        path: "/login",
+        elmeent: <Login />,
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

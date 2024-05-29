@@ -58,6 +58,7 @@ export default function Order() {
   async function onSubmit(e) {
     e.preventDefault();
     const person = { ...form };
+    console.log(person);
     try {
       let response;
       if (isNew) {

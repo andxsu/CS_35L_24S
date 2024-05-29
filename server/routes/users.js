@@ -3,6 +3,7 @@
 import express from "express";
 import db from "../db/connection.js";
 import nodemailer from 'nodemailer';
+import {ObjectId} from "mongodb"
 import { xxHash32 } from 'js-xxhash';
 const router = express.Router();
 
@@ -22,6 +23,15 @@ router.get("/", async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+router.get("/:id", async (req, res) => {
+    // let collection = await db.collection("records");
+    let query = { _id: new ObjectId(req.params.id) };
+    let result = await collection.findOne(query);
+  
+    if (!result) res.send("Not found").status(404);
+    else res.send(result).status(200);
+  });
 
 router.get("/login/:username/:enteredPassword", async (req, res) => {
     try{
@@ -96,13 +106,21 @@ router.post("/", async (req, res) =>{
     const email = req.body.email;
     const phoneNum = Number(req.body.phoneNum);
     const password = req.body.password;
+    const venmo = req.body.venmo;
+    const type = req.body.type;
+    const active_orders = [];
+    const previous_orders = [];
 
     const newEntry = {
         username,
         address,
         email,
         phoneNum,
-        password
+        password,
+        venmo,
+        type,
+        active_orders,
+        previous_orders,
     };
 
     try {
@@ -125,3 +143,4 @@ function hashPassword(username){
     let time = currentdate.getUTCMilliseconds().toString();
     let hashNum = xxHash32(username + time, 0);
     return hashNum.toString(16);
+}

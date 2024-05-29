@@ -125,4 +125,3 @@ function hashPassword(username){
     let time = currentdate.getUTCMilliseconds().toString();
     let hashNum = xxHash32(username + time, 0);
     return hashNum.toString(16);
-}

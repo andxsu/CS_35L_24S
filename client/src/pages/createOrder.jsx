@@ -10,10 +10,6 @@ export default function CreateOrder() {
     const navigate = useNavigate();
     const {user} = useContext(UserContext);
     
-    
-    
-    
-
     const [data, setData] = useState({
         dining_hall: '',
         creator_username: '',

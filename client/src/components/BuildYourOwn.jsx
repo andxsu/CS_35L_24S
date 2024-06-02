@@ -1,5 +1,17 @@
 // BuildYourOwnBowl.jsx
 export function BuildYourOwnBurritoBowl({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+    
+      const toppingsOptions = [
+        "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
+      ];
+    
     return (
       <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -65,27 +77,23 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
             <option value="None">None</option>
         </select>
 
-        <label htmlFor="toppings1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-            Toppings
-        </label>
-        <select
-            id="toppings1"
+      <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Toppings 
+      </label>
+      {toppingsOptions.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
             name="toppings1"
-            className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={form.toppings1 || ""}
-            onChange={(e) => updateForm({ toppings1: e.target.value })}
-            multiple={true}
-            defaultValue={"None"}
+            value={option}
+            checked={(form.toppings1 || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
 
-        >
-            <option value="">Select toppings</option>
-            <option value="Shredded Lettuce">Shredded Lettuce</option>
-            <option value="Shredded Cheese">Shredded Cheese</option>
-            <option value="Guacamole">Guacamole</option>
-            <option value="Pico De Gallo">Pico De Gallo</option>
-            <option value="None">None</option>
-
-        </select>
 
         <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
             Toppings (1/2)
@@ -153,6 +161,17 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
   }
 
 export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+    
+      const toppingsOptions = [
+        "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
+      ];
     return (
       <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -218,27 +237,22 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
             <option value="None">None</option>
         </select>
 
-        <label htmlFor="toppings1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-            Toppings
-        </label>
-        <select
-            id="toppings1"
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Toppings 
+      </label>
+      {toppingsOptions.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
             name="toppings1"
-            className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={form.toppings1 || ""}
-            onChange={(e) => updateForm({ toppings1: e.target.value })}
-            multiple={true}
-            defaultValue={"None"}
-
-        >
-            <option value="">Select toppings</option>
-            <option value="Shredded Lettuce">Shredded Lettuce</option>
-            <option value="Shredded Cheese">Shredded Cheese</option>
-            <option value="Guacamole">Guacamole</option>
-            <option value="Pico De Gallo">Pico De Gallo</option>
-            <option value="None">None</option>
-
-        </select>
+            value={option}
+            checked={(form.toppings1 || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
 
         <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
             Toppings (1/2)
@@ -306,6 +320,17 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
   }
 
 export function BuildYourOwnBurrito({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+    
+      const toppingsOptions = [
+        "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
+      ];
     return (
       <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -372,27 +397,22 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
             <option value="None">None</option>
         </select>
 
-        <label htmlFor="toppings1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-            Toppings
-        </label>
-        <select
-            id="toppings1"
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Toppings 
+      </label>
+      {toppingsOptions.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
             name="toppings1"
-            className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={form.toppings1 || ""}
-            onChange={(e) => updateForm({ toppings1: e.target.value })}
-            multiple={true}
-            defaultValue={"None"}
-
-        >
-            <option value="">Select toppings</option>
-            <option value="Shredded Lettuce">Shredded Lettuce</option>
-            <option value="Shredded Cheese">Shredded Cheese</option>
-            <option value="Guacamole">Guacamole</option>
-            <option value="Pico De Gallo">Pico De Gallo</option>
-            <option value="None">None</option>
-
-        </select>
+            value={option}
+            checked={(form.toppings1 || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
 
         <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
             Toppings (1/2)
@@ -461,6 +481,17 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
   
 
 export function BuildYourOwnTacos({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+    
+      const toppingsOptions = [
+        "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
+      ];
     return (
       <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -525,27 +556,22 @@ export function BuildYourOwnTacos({ form, updateForm }) {
             <option value="None">None</option>
         </select>
 
-        <label htmlFor="toppings1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-            Toppings
-        </label>
-        <select
-            id="toppings1"
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Toppings 
+      </label>
+      {toppingsOptions.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
             name="toppings1"
-            className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={form.toppings1 || ""}
-            onChange={(e) => updateForm({ toppings1: e.target.value })}
-            multiple={true}
-            defaultValue={"None"}
-
-        >
-            <option value="">Select toppings</option>
-            <option value="Shredded Lettuce">Shredded Lettuce</option>
-            <option value="Shredded Cheese">Shredded Cheese</option>
-            <option value="Guacamole">Guacamole</option>
-            <option value="Pico De Gallo">Pico De Gallo</option>
-            <option value="None">None</option>
-
-        </select>
+            value={option}
+            checked={(form.toppings1 || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
 
         <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
             Toppings (1/2)
@@ -613,6 +639,17 @@ export function BuildYourOwnTacos({ form, updateForm }) {
   }
 
 export function BuildYourOwnTacoSalad({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+    
+      const toppingsOptions = [
+        "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
+      ];
     return (
       <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -677,27 +714,22 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
             <option value="None">None</option>
         </select>
 
-        <label htmlFor="toppings1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-            Toppings
-        </label>
-        <select
-            id="toppings1"
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Toppings 
+      </label>
+      {toppingsOptions.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
             name="toppings1"
-            className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={form.toppings1 || ""}
-            onChange={(e) => updateForm({ toppings1: e.target.value })}
-            multiple={true}
-            defaultValue={"None"}
-
-        >
-            <option value="">Select toppings</option>
-            <option value="Shredded Lettuce">Shredded Lettuce</option>
-            <option value="Shredded Cheese">Shredded Cheese</option>
-            <option value="Guacamole">Guacamole</option>
-            <option value="Pico De Gallo">Pico De Gallo</option>
-            <option value="None">None</option>
-
-        </select>
+            value={option}
+            checked={(form.toppings1 || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
 
         <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
             Toppings (1/2)
@@ -906,6 +938,18 @@ export function BuildYourOwnPizza({ form, updateForm }) {
               
 
 export function BuildYourOwnSandwich({ form, updateForm }) {
+    const handleCheckboxChange = (e) => {
+        const { name, value, checked } = e.target;
+        const newValues = checked
+          ? [...(form[name] || []), value]
+          : (form[name] || []).filter((v) => v !== value);
+        updateForm({ [name]: newValues });
+      };
+      const options = [
+        "Balsamic Vinaigrette", "Deli Mustard", "Mayonnaise", "Olive Oil", 
+        "Pesto Sauce", "Red Wine Vinegar", "Sun-Dried Tomato Pesto", 
+        "Vegan Mayonnaise", "None"
+      ];
     return (
         <div>
         <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
@@ -1037,27 +1081,22 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="Tomatoes">Tomatoes</option>
         <option value="None">None</option>
       </select>
-      <label htmlFor="Spreads" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
-        Spreads & Condiments
+      <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        Spreads & Condiments (multiple)
       </label>
-      <select
-        id="Spreads"
-        name="Spreads"
-        className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        value={form.spreads || ""}
-        onChange={(e) => updateForm({ spreads: e.target.value })}
-      >
-        <option value="">Select a spread or condiment</option>
-        <option value="Balsamic Vinaigrette">Balsamic Vinaigrette</option>
-        <option value="Deli Mustard">Deli Mustard</option>
-        <option value="Mayonnaise">Mayonnaise</option>
-        <option value="Olive Oil">Olive Oil</option>
-        <option value="Pesto Sauce">Pesto Sauce</option>
-        <option value="Red Wine Vinegar">Red Wine Vinegar</option>
-        <option value="Sun-Dried Tomato Pesto">Sun-Dried Tomato Pesto</option>
-        <option value="Vegan Mayonnaise">Vegan Mayonnaise</option>
-        <option value="None">None</option>
-      </select>
+      {options.map((option) => (
+        <div key={option} className="mt-1">
+          <input
+            type="checkbox"
+            name="spreadsCondiments"
+            value={option}
+            checked={(form.spreadsCondiments || []).includes(option)}
+            onChange={handleCheckboxChange}
+            className="mr-2 rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          <label className="text-sm leading-6 text-slate-900">{option}</label>
+        </div>
+      ))}
     </div>
     );
     }

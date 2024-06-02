@@ -1,13 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useContext} from 'react';
+import {UserContext} from '../../context/userContext';
 
 
 export default function Navbar(){
-    return(
+    const {user, logout} = useContext(UserContext)
+    return (
         <nav>
             <Link to='/'>Home</Link>
-            <Link to='/login'>Login</Link>
-            <Link to='/register'>Register</Link>
+            {!user ? (
+                <>
+                    <Link to='/login'>Login</Link>
+                </>
+            ) : (
+                <button onClick={logout}>Logout</button>
+            )}
         </nav>
-    )
+    );
 }

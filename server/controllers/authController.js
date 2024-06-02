@@ -114,9 +114,15 @@ const getProfile = async (req, res) => {
     }
     
 }
+const logoutUser = async(req, res) => {
+    res.clearCookie('token');
+    res.json({message: 'Logged out successfully'})
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    logoutUser,
 }

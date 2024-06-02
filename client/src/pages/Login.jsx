@@ -3,6 +3,7 @@ import {useState} from 'react';
 import axios from 'axios';
 import {toast} from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default function Login(){
     const navigate = useNavigate()
@@ -41,6 +42,8 @@ export default function Login(){
                 <input type= 'text' placeholder = 'Enter password...' value = {data.password} onChange={(e) => setData({...data, password: e.target.value})} />
 
                 <button type='submit'>Log In</button>
+                <Link to='/register'>Don't have an account? Register here</Link>
+
 
             </form>
         </div>

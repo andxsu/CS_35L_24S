@@ -6,11 +6,11 @@ export default function Dashboard() {
     const navigate = useNavigate()
     
     const {user} = useContext(UserContext)
-    // useEffect(() => {
-    //     if (!user) {
-    //         navigate('/login');
-    //     }
-// })
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+})
     
     
 

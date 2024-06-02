@@ -1,6 +1,6 @@
 const { response } = require("express");
-const User = require("../models/user")
-const { hashPassword, comparePassword} = require('../helpers/auth')
+const User = require("../models/user");
+const { hashPassword, comparePassword} = require('../helpers/auth');
 const jwt = require("jsonwebtoken");
 
 const test = (req,res) => {
@@ -34,7 +34,7 @@ const registerUser = async (req,res) => {
             })
         }
         if(!venmo){
-            return ResizeObserver.json({
+            return res.json({
                 error: 'Venmo is required'
             })
         }; 

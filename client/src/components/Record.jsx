@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { BuildYourOwnBurritoBowl } from "./BuildYourOwn";
+import { BuildYourOwnRendeWestSalad } from "./BuildYourOwn";
+import { BuildYourOwnBurrito } from "./BuildYourOwn";
+import { BuildYourOwnTacos } from "./BuildYourOwn";
+import { BuildYourOwnTacoSalad } from "./BuildYourOwn";
+import { BuildYourOwnPizza } from "./BuildYourOwn";
+import { BuildYourOwnSandwich } from "./BuildYourOwn";
+import { BuildYourOwnStudySalad } from "./BuildYourOwn";
+import { BuildYourOwnBreakfastSkillet } from "./BuildYourOwn";
+import { BuildYourOwnBagel } from "./BuildYourOwn";
 
 export default function Order() {
   const [form, setForm] = useState({
@@ -10,6 +20,18 @@ export default function Order() {
   });
   const [isNew, setIsNew] = useState(true);
   const [menuItems, setMenuItems] = useState([]);
+
+  const buildYourOwnItems = [
+    "Build your own bowl",
+    "Build your own burrito",
+    "Build your own burrito bowl",
+    "Build your own pizza",
+    "Build your own sandwich",
+    "Build your own Study salad", "Build your own bagel", "Build your own breakfast skillet", "Build your own tacos", "Build your own taco salad", "Build your own Rende West salad"
+  ];
+  const [buildYourOwnForm, setBuildYourOwnForm] = useState({});
+
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -40,9 +62,9 @@ export default function Order() {
   useEffect(() => {
     const diningHallsMenus = {
       "Rendezvous East": ["California Sushi Bowl", "Build your own bowl"],
-      "Rendezvous West": ["Build your own burrito", "Build your own buritto bowl", "Chicken Quesadillas"],
-      "The Study": ["Build your own pizza", "Build your own sandwich", "Build your own salad", "Pretzel and sausage platter", "Swiss fondue frites", "Cream and fruits waffle", "Nutella Waffle", "Coffee"],
-      "The Drey": ["California Roll", "Cucumber avocado roll", "Berry Somoothie", "Roast Beef Sandwich", "BLT"],
+      "Rendezvous West": ["Build your own burrito", "Build your own burrito bowl", "Build your own tacos","Build your own taco salad","Build your own Rende West salad", "Chicken Quesadillas"],
+      "The Study": ["Build your own bagel", "Build your own breakfast skillet", "Build your own pizza", "Build your own sandwich", "Build your own Study salad", "Pretzel and sausage platter", "Swiss fondue frites", "Cream and fruits waffle", "Nutella Waffle", "Coffee"],
+      "The Drey": ["California Roll", "Cucumber avocado roll", "Berry Smoothie", "Roast Beef Sandwich", "BLT"],
       "Bruin Cafe": ["BBQ Beef Brisket Sandwich", "Buffalo Sandwich", "Cheesesteak", "Chicken Caesar", "The Cuban"]
     };
 
@@ -50,10 +72,13 @@ export default function Order() {
   }, [form.dining_hall]);
 
   function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
+    if (buildYourOwnItems.includes(form.food_item)) {
+      setBuildYourOwnForm((prev) => ({ ...prev, ...value }));
+    } else {
+      setForm((prev) => ({ ...prev, ...value }));
+    }
   }
+
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -86,7 +111,49 @@ export default function Order() {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
       setForm({ dining_hall: "", food_item: "", food_order: "", notes_for_deliverer: ""});
+      setBuildYourOwnForm({});
       navigate("/");
+    }
+  }
+
+  function renderBuildYourOwnForm() {
+    switch (form.food_item) {
+      case "Build your own burrito bowl":
+        return <BuildYourOwnBurritoBowl form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own Rende West salad":
+        return <BuildYourOwnRendeWestSalad form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own burrito":
+        return <BuildYourOwnBurrito form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own tacos":
+        return <BuildYourOwnTacos form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own taco salad":
+        return <BuildYourOwnTacoSalad form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own pizza":
+        return <BuildYourOwnPizza form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own sandwich":
+        return <BuildYourOwnSandwich form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own Study salad":
+        return <BuildYourOwnStudySalad form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own breakfast skillet":
+        return <BuildYourOwnBreakfastSkillet form={buildYourOwnForm} updateForm={updateForm} />;
+      case "Build your own bagel":
+        return <BuildYourOwnBagel form={buildYourOwnForm} updateForm={updateForm} />;
+      default:
+        // return (
+        //   // <div className="mt-2">
+        //   //   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+        //   //     <input
+        //   //       type="text"
+        //   //       name="order"
+        //   //       id="order"
+        //   //       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+        //   //       placeholder="Sourdough bread with roast beef, bacon, lettuce, tomato, and mayo"
+        //   //       value={form.food_order}
+        //   //       onChange={(e) => updateForm({ food_order: e.target.value })}
+        //   //     />
+        //   //   </div>
+        //   // </div>
+        // );
     }
   }
 
@@ -214,26 +281,7 @@ export default function Order() {
               </div>
             </div>
             <div className="sm:col-span-4">
-              <label htmlFor="order" className="block text-sm font-medium leading-6 text-slate-900">
-                Order details
-              </label>
-              <small htmlFor="order" className="block text-sm font-small leading-6 text-slate-900">
-                If you ordered a build your own item, please specify what you would like in the box below
-              </small>
-
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="order"
-                    id="order"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Sourdough bread with roast beef, bacon, lettuce, tomato, and mayo"
-                    value={form.food_order}
-                    onChange={(e) => updateForm({ food_order: e.target.value })}
-                  />
-                </div>
-              </div>
+            {renderBuildYourOwnForm()}
             </div>
             <div className="sm:col-span-4">
               <label htmlFor="notes" className="block text-sm font-medium leading-6 text-slate-900">

@@ -72,12 +72,11 @@ export default function Order() {
   }, [form.dining_hall]);
 
   function updateForm(value) {
-    if (buildYourOwnItems.includes(form.food_item)) {
-      setBuildYourOwnForm((prev) => ({ ...prev, ...value }));
-    } else {
-      setForm((prev) => ({ ...prev, ...value }));
-    }
+    setForm((prev) => ({ ...prev, ...value }));
+    setBuildYourOwnForm((prev) => ({ ...prev, ...value }));
   }
+  
+  
 
 
   async function onSubmit(e) {
@@ -139,21 +138,7 @@ export default function Order() {
       case "Build your own bagel":
         return <BuildYourOwnBagel form={buildYourOwnForm} updateForm={updateForm} />;
       default:
-        // return (
-        //   // <div className="mt-2">
-        //   //   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-        //   //     <input
-        //   //       type="text"
-        //   //       name="order"
-        //   //       id="order"
-        //   //       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-        //   //       placeholder="Sourdough bread with roast beef, bacon, lettuce, tomato, and mayo"
-        //   //       value={form.food_order}
-        //   //       onChange={(e) => updateForm({ food_order: e.target.value })}
-        //   //     />
-        //   //   </div>
-        //   // </div>
-        // );
+        return null;
     }
   }
 

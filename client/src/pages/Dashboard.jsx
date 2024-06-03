@@ -81,7 +81,6 @@ export default function Dashboard() {
                                 <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
                                 <strong>Order:</strong> {order.orderDetails.food_order}<br />
                                 <strong>Status:</strong> {order.orderDetails.out_for_delivery ? 'Out for delivery' : 'Waiting for pickup'}<br />
-                                {/* Add more order details as needed */}
                             </div>
                         </li>
                     ))}

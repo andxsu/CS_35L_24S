@@ -60,4 +60,4 @@ npm run dev
 The frontend will be available on the local host port specified by vite.
 
 ## Authors
-_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, 
+_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, Aryan Mosavian Pour, 

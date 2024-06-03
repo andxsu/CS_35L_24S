@@ -25,7 +25,6 @@ export default function Login() {
             if (data.error) {
                 toast.error(data.error);
             } else {
-                setData({});
                 await fetchUserData();
                 navigate('/dashboard');
             }

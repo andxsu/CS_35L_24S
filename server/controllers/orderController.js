@@ -1,4 +1,5 @@
 const Order = require("../models/order");
+const User = require("../models/user")
 
 const createOrder = async (req, res) => {
     try {
@@ -10,10 +11,11 @@ const createOrder = async (req, res) => {
             notes_for_deliverer,
             active: true,
             out_for_delivery: false,
-
-
         });
-        return res.json(order);
+        const user = await User.findOne({username: creator_username});
+        user.active_orders.push(order)
+        await user.save();
+        return res.json({order: order, user: user});
 
         
     } catch (error) {
@@ -22,6 +24,18 @@ const createOrder = async (req, res) => {
     }
 }
 
+const getOrder = async (req, res) => {
+    try {
+        const{orderId} = req.body;
+        const order = Order.findOne({orderId});
+        res.json(order);
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
 module.exports = {
     createOrder,
+    getOrder,
 }

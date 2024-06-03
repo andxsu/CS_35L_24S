@@ -10,8 +10,10 @@ const createOrder = async (req, res) => {
             creator_username,
             food_order,
             notes_for_deliverer,
-            active: true,
-            out_for_delivery: false,
+            active: false,
+            completed: false,
+            deliverer_username: '',
+
         });
         const user = await User.findOne({username: creator_username});
         user.active_orders.push(order)
@@ -29,6 +31,16 @@ const createOrder = async (req, res) => {
         
     }
 }
+
+// const updateOrder = async (req, res) => {
+//     try {
+//         const {active, completed, deliverer_username} = req.query;
+//         const order = await Order.findOne({_id: orderId});
+        
+//     } catch (error) {
+        
+//     }
+// }
 
 const getOrder = async (req, res) => {
     try {

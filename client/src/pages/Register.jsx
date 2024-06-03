@@ -13,12 +13,13 @@ export default function Register(){
         phoneNum: '',
         address: '',
         venmo: '',
+        user_type: '',
     })
     const registerUser = async (e) => {
         e.preventDefault();
-        const {username, email, password, phoneNum, address, venmo} = data;
+        const {username, email, password, phoneNum, address, venmo, user_type} = data;
         try {
-            const {data} = await axios.post('/register', {username, email, password, phoneNum, address, venmo});
+            const {data} = await axios.post('/register', {username, email, password, phoneNum, address, venmo, user_type});
             if(data.error){
                 toast.error(data.error);
             }
@@ -53,6 +54,18 @@ export default function Register(){
 
                 <label>Venmo</label> 
                 <input type = 'text' placeholder = 'Enter venmo...' value = {data.venmo} onChange={(e) => setData({...data, venmo: e.target.value})}/>
+
+                <label>User Type</label>
+                <select 
+                    name='userType' 
+                    value={data.user_type} 
+                    onChange={(e) => setData({...data, user_type: e.target.value})}>
+                    <option value="" disabled>Select user type</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Deliverer">Deliverer</option>
+                    
+                </select>
+                
 
                 <button type = 'submit'>Register</button>
 

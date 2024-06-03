@@ -10,7 +10,7 @@ const test = (req,res) => {
 //Register function
 const registerUser = async (req,res) => {
     try {
-        const {username, email, password, address, phoneNum, venmo} = req.body;
+        const {username, email, password, address, phoneNum, venmo, user_type} = req.body;
         //checks
         if(!username){
             return res.json({
@@ -57,7 +57,8 @@ const registerUser = async (req,res) => {
             password: hashedPassword, 
             venmo, 
             address, 
-            phoneNum
+            phoneNum,
+            user_type
         });
 
         return res.json(user)

@@ -1,3 +1,6 @@
+# Bruin Bites
+
+<img src="client/public/bruinbiteslogo.jpg" alt="Bruin Bites Logo" width="200px">
 ## Table of Contents
 - [Features](https://github.com/andxsu/CS_35L_24S/#features)
 - [Technologies](https://github.com/andxsu/CS_35L_24S/#technologies)
@@ -8,7 +11,7 @@
 - **Custom Menus for BYO:** 
 - **Notifications:** 
 - **Order Status:** 
-- **User Reviews and Profiles:** 
+- **User Profiles:** 
 
 ## Technologies
  - Javascript <img src="https://seeklogo.com/images/J/javascript-logo-8892AEFCAC-seeklogo.com.png" alt="javascript" width="30px">

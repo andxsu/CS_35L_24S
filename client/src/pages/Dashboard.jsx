@@ -55,20 +55,20 @@ export default function Dashboard() {
             {!!user && <Link to='/order' style={orderLinkStyle} >Place an order</Link>}
             <h2>Your orders</h2>
             {orders.length > 0 ? (
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {orders.map(order => (
-                        <li key={order.orderId} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
-                            <div>
-                                <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
-                                <strong>Order:</strong> {order.orderDetails.food_order}<br />
-                                <strong>Status:</strong> {order.orderDetails.out_for_delivery ? 'Out for delivery' : 'Waiting for pickup'}<br />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No active orders</p>
-            )}
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
+                {[...orders].reverse().map(order => (
+                    <li key={order.orderId} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
+                        <div>
+                            <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
+                            <strong>Order:</strong> {order.orderDetails.food_order}<br />
+                            <strong>Status:</strong> {order.orderDetails.out_for_delivery ? 'Out for delivery' : 'Waiting for pickup'}<br />
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>No active orders</p>
+        )}
         </div>
     );
 }

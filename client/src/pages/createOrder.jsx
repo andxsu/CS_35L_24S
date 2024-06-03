@@ -43,7 +43,6 @@ const [form, setForm] = useState({
     addOns2: '',
     addOns3: '',
     bread: '',
-    cheese: '',
     spreadsCondiments: [],
     greens: '',
     dressing: '',
@@ -89,7 +88,7 @@ const [form, setForm] = useState({
   }
   useEffect(() => {
     const diningHallsMenus = {
-      "Rendezvous East": ["California Sushi Bowl", "Build your own bowl"],
+      "Rendezvous East": ["California Sushi Bowl"],
       "Rendezvous West": ["Build your own burrito", "Build your own burrito bowl", "Build your own tacos","Build your own taco salad","Build your own Rende West salad", "Chicken Quesadillas"],
       "The Study": ["Build your own bagel", "Build your own breakfast skillet", "Build your own pizza", "Build your own sandwich", "Build your own Study salad", "Pretzel and sausage platter", "Swiss fondue frites", "Cream and fruits waffle", "Nutella Waffle", "Coffee"],
       "The Drey": ["California Roll", "Cucumber avocado roll", "Berry Smoothie", "Roast Beef Sandwich", "BLT"],
@@ -123,24 +122,23 @@ const [form, setForm] = useState({
         form.eggs && `Eggs: ${form.eggs}`,
         form.bagel && `Bagel: ${form.bagel}`,
     ].filter(Boolean).join(', ').replace(/[\r\n\s]{2,}/gm, " ");
-    
 
     const { 
-        dining_hall, 
-        creator_username, 
-        food_order, 
-        notes_for_deliverer, 
-        active, 
-        out_for_delivery 
+      dining_hall, 
+      creator_username, 
+      food_order,
+      notes_for_deliverer, 
+      active, 
+      out_for_delivery 
     } = { 
         dining_hall: form.dining_hall, 
         creator_username: form.creator_username, 
-        food_order: concatenatedOrder, 
+        food_order: form.food_order.trim() ? form.food_order : concatenatedOrder, 
         notes_for_deliverer: form.notes_for_deliverer, 
         active: form.active, 
         out_for_delivery: form.out_for_delivery 
     };
-    
+
     try {
         const {data} = await axios.post('/order', {dining_hall, creator_username, food_order, notes_for_deliverer, active, out_for_delivery})
         if(data.error){
@@ -149,7 +147,7 @@ const [form, setForm] = useState({
         else{
             setForm({});
             setBuildYourOwnForm({});
-            // console.log(data);
+            console.log(data);
             toast.success('Order created!');
             await fetchUserData();
             console.log("order user")
@@ -162,7 +160,7 @@ const [form, setForm] = useState({
 }
 
   function renderBuildYourOwnForm() {
-    switch (form.food_item) {
+    switch (form.food_order) {
       case "Build your own burrito bowl":
         return <BuildYourOwnBurritoBowl form={buildYourOwnForm} updateForm={updateForm} />;
       case "Build your own Rende West salad":
@@ -301,12 +299,12 @@ const [form, setForm] = useState({
                   id="menuItem"
                   name="menuItem"
                   className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  value={form.food_item}
-                  onChange={(e) => updateForm({ food_item: e.target.value })}
+                  value={form.food_order}
+                  onChange={(e) => updateForm({ food_order: e.target.value })}
                   disabled={!form.dining_hall}
                 >
                   <option value="">
-                    {form.food_item ? form.food_item : "Select a Menu Item"}
+                    {form.food_order ? form.food_order : "Select a Menu Item"}
                   </option>
                   {menuItems.map((item, index) => (
                     <option key={index} value={item}>

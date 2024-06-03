@@ -10,9 +10,9 @@ export default function Navbar() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '30px',
+        padding: '0px',
         gap: '30px',
-        fontSize: '30px',
+        fontSize: '25px',
     };
 
     const linkStyle = {

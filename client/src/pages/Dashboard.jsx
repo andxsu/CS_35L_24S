@@ -11,8 +11,6 @@ export default function Dashboard() {
     
     const fetchOrderDetails = async () => {
          
-
-    
         if (user && user.active_orders) {
             // fetchUserData()
             const orderDetails = await Promise.all(
@@ -41,7 +39,7 @@ export default function Dashboard() {
 
     const orderLinkStyle = {
         fontSize: '24px',          // Increase the font size of the "Place an order" link
-        padding: '12px 24px',      // Increase padding for better appearance
+        padding: '15px 35px',      // Increase padding for better appearance
         backgroundColor: '#747bff', // Background color for the link
         color: '#fff',             // Text color for better contrast
         borderRadius: '12px',      // Rounded edges
@@ -49,15 +47,14 @@ export default function Dashboard() {
     };
 
     return (
-        <div>
-            <h1 style={{ fontSize: '40px' }}>Dashboard</h1>
-            {!!user && <h2>Hi {user.username}!</h2>}
-            {!!user && <Link to='/order' style={orderLinkStyle} >Place an order</Link>}
-            <h2>Your orders</h2>
-            {orders.length > 0 ? (
+        <div style={{ position: 'relative', paddingBottom: '100px' }}>
+        <h1 style={{ marginBottom:'50px', fontSize: '40px' }}>{user ? `Dashboard for ${user.username}` : 'Dashboard'}</h1>
+        {!!user && <Link to='/order' style={orderLinkStyle} >Place an order</Link>}
+        <h2 style={{marginBottom: '10px', padding: '15px', fontSize: '30px' }}>Your orders:</h2>
+        {orders.length > 0 ? (
             <ul style={{ listStyleType: 'none', padding: 0 }}>
                 {[...orders].reverse().map(order => (
-                    <li key={order.orderId} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
+                    <li key={order.orderId} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px', fontSize: '20px' }}>
                         <div>
                             <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
                             <strong>Order:</strong> {order.orderDetails.food_order}<br />
@@ -68,7 +65,8 @@ export default function Dashboard() {
             </ul>
         ) : (
             <p>No active orders</p>
-        )}
-        </div>
+    )}
+</div>
+
     );
 }

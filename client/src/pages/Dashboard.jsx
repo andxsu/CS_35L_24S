@@ -39,16 +39,20 @@ export default function Dashboard() {
         fetchOrderDetails()
     }, [user]);
 
-    
-
-    
-
+    const orderLinkStyle = {
+        fontSize: '24px',          // Increase the font size of the "Place an order" link
+        padding: '12px 24px',      // Increase padding for better appearance
+        backgroundColor: '#747bff', // Background color for the link
+        color: '#fff',             // Text color for better contrast
+        borderRadius: '12px',      // Rounded edges
+        textDecoration: 'none',    // Remove underline
+    };
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1 style={{ fontSize: '40px' }}>Dashboard</h1>
             {!!user && <h2>Hi {user.username}!</h2>}
-            {!!user && <Link to='/order'>Place an order</Link>}
+            {!!user && <Link to='/order' style={orderLinkStyle} >Place an order</Link>}
             <h2>Your orders</h2>
             {orders.length > 0 ? (
                 <ul style={{ listStyleType: 'none', padding: 0 }}>

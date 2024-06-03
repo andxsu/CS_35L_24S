@@ -36,17 +36,49 @@ export default function Login() {
         }
     };
 
+    const labelStyle = {
+        fontSize: '20px',
+        marginBottom: '10px',
+        display: 'block'
+    };
+
+    const inputStyle = {
+        fontSize: '18px',
+        padding: '10px',
+        width: '100%',
+        marginBottom: '20px',
+        boxSizing: 'border-box'
+    };
+
+    const buttonStyle = {
+        fontSize: '18px',
+        padding: '10px 20px',
+        cursor: 'pointer'
+    };
+
     return (
-        <div>
+        <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
             <form onSubmit={loginUser}>
-                <label>Email</label>
-                <input type='text' placeholder='Enter email...' value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} />
-
-                <label>Password</label>
-                <input type='password' placeholder='Enter password...' value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
-
-                <button type='submit'>Log In</button>
-                <Link to='/register'>Don't have an account? Register here</Link>
+                <label style={labelStyle}>Email</label>
+                <input
+                    type='text'
+                    placeholder='Enter email...'
+                    value={data.email}
+                    onChange={(e) => setData({ ...data, email: e.target.value })}
+                    style={inputStyle}
+                />
+                <label style={labelStyle}>Password</label>
+                <input
+                    type='password'
+                    placeholder='Enter password...'
+                    value={data.password}
+                    onChange={(e) => setData({ ...data, password: e.target.value })}
+                    style={inputStyle}
+                />
+                <button type='submit' style={buttonStyle}>Log In</button>
+                <div style={{ marginTop: '20px' }}>
+                    <Link to='/register' style={{ fontSize: '18px' }}>Don't have an account? Register here</Link>
+                </div>
             </form>
         </div>
     );

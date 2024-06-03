@@ -21,7 +21,6 @@ export default function CreateOrder() {
 const params = useParams();
 const navigate = useNavigate();
 const {user, fetchUserData} = useContext(UserContext);
-// fetchUserData();
 
 
 const [form, setForm] = useState({

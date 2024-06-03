@@ -55,7 +55,7 @@ const registerUser = async (req,res) => {
         const user = await User.create({
             username, 
             email, 
-            password: hashedPassword, 
+            password: hashedPassword,
             venmo, 
             address, 
             phoneNum
@@ -82,13 +82,12 @@ const loginUser = async (req, res) => {
             return res.json({error: "No user found"});
         }
         //Check if passwords match
-        const match = await comparePassword(password, user.password);
+        const match = await comparePassword(hashPassword(password), user.password);
         if(match){
             // res.json("Success!")
             jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
                 if(err) throw err;
                 res.cookie('token', token).json(user)
-
             })
     
 
@@ -141,7 +140,7 @@ const forgotPassword = async(req, res) => {
             //console.log(query.email.toString() + seconds.toString());
             let newPassword = hashPassword(query.email.toString() + seconds.toString());
             const updates = {$set: {
-                    password: newPassword,
+                    password: hashPassword(newPassword),
                 },
             };
             //Send email
@@ -174,6 +173,83 @@ const forgotPassword = async(req, res) => {
     }
 }
 
+//updating user information
+const updateUser = async(req, res) => {
+    try {
+        //Check if user exists
+        const query = await User.findOne({email: req.body.email});
+        if(!query){
+            return res.json({error: "No user found"});
+        }
+        //Check if passwords match
+        const match = await comparePassword(hashPassword(req.body.password.toString()), query.password.toString());
+        if(match){
+            
+            let updates = {$set:{}};
+            if(req.body.new_password){
+                updates = {$set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: hashPassword(req.body.new_password),
+                    address: req.body.address,
+                    phoneNum: req.body.phoneNum,
+                    venmo: req.body.venmo,
+                }};
+            }
+            else{
+                updates = {$set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                    address: req.body.address,
+                    phoneNum: req.body.phoneNum,
+                    venmo: req.body.venmo,
+                }};
+            }
+
+            try{
+                await User.updateOne({email: query.email}, updates);
+                jwt.sign({email: req.body.email, id: req.body._id, username: req.body.username, active_orders: req.body.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
+                    if(err) throw err;
+                    res.cookie('token', token).json(query);
+                });
+            }
+            catch (error){
+                return res.status(500).send("w h a t?????,?? " + error);
+            }
+        }
+        if(!match){
+            res.json({error: "Incorrect password"})
+        }
+        
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
+const deleteUser = async(req, res) => {
+    try {
+        //Check if user exists
+        const query = await User.findOne({email: req.body.email});
+        if(!query){
+            return res.json({error: "No user found"});
+        }
+        //Check if passwords match
+        const match = await comparePassword(hashPassword(req.body.password.toString()), query.password.toString());
+        if(match){
+            var deleteUsr = await User.deleteOne({email: req.body.email});
+            res.send(deleteUsr).status(200);
+        }
+        if(!match){
+            res.json({error: "Incorrect password"})
+        }
+        
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
+
+
 module.exports = {
     test,
     registerUser,
@@ -181,4 +257,6 @@ module.exports = {
     getProfile,
     logoutUser,
     forgotPassword,
+    updateUser,
+    deleteUser,
 }

@@ -26,9 +26,9 @@ const createOrder = async (req, res) => {
 
 const getOrder = async (req, res) => {
     try {
-        const{orderId} = req.body;
-        const order = Order.findOne({orderId});
-        res.json(order);
+        const{orderId} = req.query;
+        const order = await Order.findOne({_id: orderId});
+        res.json({orderId: orderId, orderDetails: order});
     } catch (error) {
         console.log(error);
         

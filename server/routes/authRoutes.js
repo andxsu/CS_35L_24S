@@ -18,8 +18,6 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
 
-
-
 //order routes
 router.post('/order', createOrder);
 router.get('/getorder', getOrder);

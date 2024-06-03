@@ -1,5 +1,6 @@
 const Order = require("../models/order");
 const User = require("../models/user")
+const jwt = require("jsonwebtoken");
 
 const createOrder = async (req, res) => {
     try {
@@ -15,7 +16,12 @@ const createOrder = async (req, res) => {
         const user = await User.findOne({username: creator_username});
         user.active_orders.push(order)
         await user.save();
-        return res.json({order: order, user: user});
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
+            if(err) throw err;
+            res.cookie('token', token).json({user: user, order: order});
+
+        })
+        // return res.json({order: order, user: user});
 
         
     } catch (error) {
@@ -28,7 +34,8 @@ const getOrder = async (req, res) => {
     try {
         const{orderId} = req.query;
         const order = await Order.findOne({_id: orderId});
-        res.json({orderId: orderId, orderDetails: order});
+        const user = await User.findOne({username: order.creator_username});
+        res.json({orderId: orderId, orderDetails: order, creator: user});
     } catch (error) {
         console.log(error);
         

@@ -11,15 +11,18 @@ import { BuildYourOwnStudySalad } from "./BuildYourOwn";
 import { BuildYourOwnBreakfastSkillet } from "./BuildYourOwn";
 import { BuildYourOwnBagel } from "./BuildYourOwn";
 import {useContext} from 'react';
-import {toast} from 'react-hot-toast' ;
+import {toast} from 'react-hot-toast';
 import axios from 'axios';
 import {UserContext} from '../../context/userContext';
+
 
 export default function CreateOrder() {
 
 const params = useParams();
 const navigate = useNavigate();
-const {user} = useContext(UserContext);
+const {user, fetchUserData} = useContext(UserContext);
+// fetchUserData();
+
 
 const [form, setForm] = useState({
     dining_hall: '',
@@ -52,17 +55,19 @@ const [form, setForm] = useState({
     out_for_delivery: false,
 })
 
-useEffect(() => {
-    if (!user) {
-        navigate('/login');
-    }
+  useEffect(() => {
     if (user){
         setForm(prevData => ({
             ...prevData,
             creator_username: user.username
         }))
     }
-}, [user, navigate]);
+  }, [user, navigate]);
+
+  // if(!user){
+  //   navigate('/login')
+  // }
+
 
   const [isNew, setIsNew] = useState(true);
   const [menuItems, setMenuItems] = useState([]);
@@ -145,8 +150,11 @@ useEffect(() => {
         else{
             setForm({});
             setBuildYourOwnForm({});
-            console.log(data);
+            // console.log(data);
             toast.success('Order created!');
+            await fetchUserData();
+            console.log("order user")
+            console.log(user);
             navigate('/dashboard');
         }
     } catch (error) {
@@ -180,6 +188,11 @@ useEffect(() => {
         return null;
     }
   }
+
+
+  // if(!user){
+  //   navigate('/login')
+  // }
 
   return (
     <>

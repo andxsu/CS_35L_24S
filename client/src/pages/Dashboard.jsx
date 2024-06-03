@@ -4,45 +4,44 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Dashboard() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true); // Add loading state
-    const {user, fetchUserData} = useContext(UserContext);
+    const {user, setUser, fetchUserData} = useContext(UserContext);
     
+    const fetchOrderDetails = async () => {
+         
 
+    
+        if (user && user.active_orders) {
+            // fetchUserData()
+            const orderDetails = await Promise.all(
+                user.active_orders.map(async orderId => {
+                    try {
+                        const response = await axios.get(`/getorder?orderId=${orderId}`);
+                        // console.log("Creator")
+                        // console.log(response.data.creator)
+                        
+                        return response.data;
+                    } catch (error) {
+                        console.error('Error fetching order details:', error);
+                        return null;
+                    }
+                })
+            );
+            setOrders(orderDetails.filter(order => order !== null));
+        }
+    };
+    
     useEffect(() => {
-       
-        
-        const fetchOrderDetails = async () => {
-            if (user && user.active_orders) {
-                const orderDetails = await Promise.all(
-                    user.active_orders.map(async orderId => {
-                        try {
-                            const response = await axios.get(`/getorder?orderId=${orderId}`);
-                            // console.log(orderId)
-                            return response.data;
-                        } catch (error) {
-                            console.error('Error fetching order details:', error);
-                            return null;
-                        }
-                    })
-                );
-                setOrders(orderDetails.filter(order => order !== null));
-            }
-        };
-
-        
+        console.log("user")
+        console.log(user)
         fetchOrderDetails()
-        // fetchUserData()
-        
-        
-
-
     }, [user]);
 
-    // if (!user) {
-    //     navigate('/login');
-    // }
+    
+
+    
 
 
     return (
@@ -69,4 +68,3 @@ export default function Dashboard() {
         </div>
     );
 }
-

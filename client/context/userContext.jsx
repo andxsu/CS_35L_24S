@@ -14,10 +14,8 @@ export function UserContextProvider({ children }) {
     };
 
     useEffect(() => {
-        if (!user) {
-            fetchUserData();
-        }
-    }, [user]);
+        fetchUserData();
+    }, []);
 
     const logout = async () => {
         await axios.post('/logout');

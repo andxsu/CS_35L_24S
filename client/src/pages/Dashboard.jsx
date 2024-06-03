@@ -1,40 +1,3 @@
-// import { useContext, useEffect, useState } from 'react';
-// import { UserContext } from '../../context/userContext';
-// import { Link, useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-
-// export default function Dashboard() {
-//     const navigate = useNavigate();
-//     const [orders, setOrders] = useState([]);
-//     const { user } = useContext(UserContext);
-
-//     useEffect(() => {
-//         const fetchOrders = async() => {
-//             const orderDetails = await Promise.all(
-//                 user.active_orders.map(async orderId => {
-//                     try {
-//                         const response = await axios
-//                     } catch (error) {
-                        
-//                     }
-//                 })
-//             )
-//         }
-//     })
-
-
-
-//     return (
-//         <div>
-//             <h1>Dashboard</h1>
-//             {!!user && <h2>Hi {user.username}!</h2>}
-//             {!!user && <Link to='/order'>Place an order</Link>}
-//             <h2>Your orders</h2>
-//             <h3>{user.active_orders}</h3>
-//         </div>
-//     );
-// }
-
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -43,16 +6,20 @@ import axios from 'axios';
 export default function Dashboard() {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
-    const { user } = useContext(UserContext);
+    const [loading, setLoading] = useState(true); // Add loading state
+    const {user, fetchUserData} = useContext(UserContext);
+    
 
     useEffect(() => {
+       
+        
         const fetchOrderDetails = async () => {
             if (user && user.active_orders) {
                 const orderDetails = await Promise.all(
                     user.active_orders.map(async orderId => {
                         try {
                             const response = await axios.get(`/getorder?orderId=${orderId}`);
-                            console.log(orderId)
+                            // console.log(orderId)
                             return response.data;
                         } catch (error) {
                             console.error('Error fetching order details:', error);
@@ -64,8 +31,19 @@ export default function Dashboard() {
             }
         };
 
-        fetchOrderDetails();
+        
+        fetchOrderDetails()
+        // fetchUserData()
+        
+        
+
+
     }, [user]);
+
+    // if (!user) {
+    //     navigate('/login');
+    // }
+
 
     return (
         <div>
@@ -76,7 +54,7 @@ export default function Dashboard() {
             {orders.length > 0 ? (
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {orders.map(order => (
-                        <li key={order._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
+                        <li key={order.orderId} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
                             <div>
                                 <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
                                 <strong>Order:</strong> {order.orderDetails.food_order}<br />
@@ -91,3 +69,4 @@ export default function Dashboard() {
         </div>
     );
 }
+

@@ -8,7 +8,7 @@ import { UserContext } from '../../context/userContext';
 
 export default function Login() {
     const navigate = useNavigate();
-    const { fetchUserData } = useContext(UserContext);
+    const { user, fetchUserData } = useContext(UserContext);
     const [data, setData] = useState({
         email: '',
         password: '',
@@ -16,6 +16,7 @@ export default function Login() {
 
     const loginUser = async (e) => {
         e.preventDefault();
+
         const { email, password } = data;
         try {
             const { data } = await axios.post('/login', {
@@ -25,6 +26,7 @@ export default function Login() {
             if (data.error) {
                 toast.error(data.error);
             } else {
+
                 await fetchUserData();
                 navigate('/dashboard');
             }

@@ -1,12 +1,14 @@
-# CS_35L_24S
-Group: CS_35W
+First, install dependencies:
+Navigate into client directory
+Run: npm install
 
-to start local development server:
+Navigate into server directory
+Run: npm install
 
-run the following in your shell:
-cd server
-node --env-file=config.env server
+Next, run the web app:
+Navigate to client directory
+Run: npm run dev
 
-cd ..
-cd client
-npm run dev
+Navigate into the server directory
+Run: npm start
+

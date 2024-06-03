@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const {test, registerUser, loginUser, getProfile, logoutUser} = require('../controllers/authController');
+const {test, registerUser, loginUser, getProfile, logoutUser, forgotPassword} = require('../controllers/authController');
 const {createOrder, getOrder} = require('../controllers/orderController');
 //middleware
 router.use(
@@ -17,8 +17,7 @@ router.get('/profile', getProfile);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
-
-
+router.post('/forgot', forgotPassword)
 
 //order routes
 router.post('/order', createOrder);

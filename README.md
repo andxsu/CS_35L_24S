@@ -1,3 +1,9 @@
+# Bruin Bites
+
+<div style="text-align: center;">
+    <img src="client/public/bruinbiteslogo.jpg" alt="Bruin Bites Logo" width="200px">
+</div>
+
 ## Table of Contents
 - [Features](https://github.com/andxsu/CS_35L_24S/#features)
 - [Technologies](https://github.com/andxsu/CS_35L_24S/#technologies)
@@ -8,7 +14,7 @@
 - **Custom Menus for BYO:** 
 - **Notifications:** 
 - **Order Status:** 
-- **User Reviews and Profiles:** 
+- **User Profiles:** 
 
 ## Technologies
  - Javascript <img src="https://seeklogo.com/images/J/javascript-logo-8892AEFCAC-seeklogo.com.png" alt="javascript" width="30px">
@@ -60,4 +66,4 @@ npm run dev
 The frontend will be available on the local host port specified by vite.
 
 ## Authors
-_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, 
+_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, Aryan Mosavian Pour, 

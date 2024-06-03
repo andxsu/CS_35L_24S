@@ -2,6 +2,7 @@ const { response } = require("express");
 const User = require("../models/user");
 const { hashPassword, comparePassword} = require('../helpers/auth');
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const test = (req,res) => {
     res.json('test is working')
@@ -49,7 +50,7 @@ const registerUser = async (req,res) => {
             })
         }; 
 
-        const hashedPassword = await hashPassword(password);
+        const hashedPassword = hashPassword(password);
 
         const user = await User.create({
             username, 
@@ -120,10 +121,65 @@ const logoutUser = async(req, res) => {
     res.json({message: 'Logged out successfully'})
 }
 
+//reset password feature
+const forgotPassword = async(req, res) => {
+    //nodemailer setup for emailing functionality
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ucla.cs35w.s24@gmail.com',
+          pass: 'tjziqdddvmpwqsop'
+        }
+    });
+
+    //main logic for handling this specific get request
+    try{
+        //retrieve user information based on username
+        let query = await User.findOne({ email: req.body.email });
+
+        if (query){ //ensure document exists, otherwise throw error
+            let seconds = new Date().getTime() / 1000; //number of seconds since January 1, 1970
+            //console.log(query.email.toString() + seconds.toString());
+            let newPassword = hashPassword(query.email.toString() + seconds.toString());
+            const updates = {$set: {
+                    password: newPassword,
+                },
+            };
+            //Send email
+            transporter.sendMail({
+                from: 'ucla.cs35w.s24@gmail.com',
+                to: query.email.toString(),
+                subject: 'Your password was reset!',
+                html: "Hi from CS35W! We've received a request to rest your password. Your temporary password is: <b>" + newPassword + "</b>.<br>If this wasn't you, please login to your account using this password as soon as possible and change your password.<hr>All the best,<br>The CS35W team."
+            }, async function(error, info){
+                //console.log("an attempt to send the email was made");
+                if (error) {
+                    res.status(500).send("YOU MESSED UP: " + info);
+                } else {
+                    try{
+                        await User.updateOne({email: query.email}, updates);
+                        return res.status(200).send("Update successful");
+                    }
+                    catch (error){
+                        return res.status(500).send("HUH?????,?? " + error);
+                    }
+                }
+              });
+        }
+        else{
+            res.status(500).send("User not found");
+        }
+    }
+    catch (error){
+        res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser,
     getProfile,
     logoutUser,
+    forgotPassword,
 }

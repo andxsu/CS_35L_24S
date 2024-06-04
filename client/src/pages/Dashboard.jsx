@@ -10,6 +10,7 @@ export default function Dashboard() {
     const {user, setUser, fetchUserData} = useContext(UserContext);
     
     const fetchOrderDetails = async () => {
+        let orderDetails;
          
         if (user && user.active_orders) {
             if (user.active_orders.length === 1) {

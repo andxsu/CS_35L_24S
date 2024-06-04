@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 export default function OrdersDashboard() {
@@ -7,6 +8,8 @@ export default function OrdersDashboard() {
     const [myOrders, setMyOrders] = useState([])
     const [loading, setLoading] = useState(true);
     const {user, setUser, fetchUserData} = useContext(UserContext);
+    const navigate = useNavigate();
+    // console.log(user);
 
     const fetchAllOrders = async () => {
         try {
@@ -17,6 +20,8 @@ export default function OrdersDashboard() {
             return [];
         }
     };
+
+    
 
 
     useEffect(() => {
@@ -39,6 +44,10 @@ export default function OrdersDashboard() {
     }
 
 
+
+
+
+
     return (
         <div>
             <h1>Your Orders</h1>
@@ -55,7 +64,9 @@ export default function OrdersDashboard() {
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
                             </div>
                         </li>
+                        
                     ))}
+                    
                 </ul>
             ) : (
                 <p>No orders found</p>
@@ -75,6 +86,7 @@ export default function OrdersDashboard() {
                                 <strong>Order:</strong> {order.food_order}<br />
                                 <strong>Ordered by:</strong> {order.creator_username}<br />
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
+                                <button onClick={() => navigate(`/acceptorder/:${order._id}`)}>Accept Order</button>
                             </div>
                         </li>
                     ))}

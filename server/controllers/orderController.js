@@ -46,19 +46,23 @@ const getAllOrders = async (req, res) => {
     }
 }
 
-const acceptOrder = async (orderId, delivererUsername) => {
+const acceptOrder = async (req, res) => {
     try {
-        const result = await Order.updateOne(
-            {_id: orderId},
-            {
-                $set: {
-                    active: true,
-                    deliverer_username: delivererUsername
-                }
-            }
-        );
+        const {orderId, accepter} = req.body
+        const user = await User.findOne({username: accepter});
 
-        return result;
+        const order = await Order.findByIdAndUpdate(orderId, {
+            active: true,
+            deliverer_username: accepter,
+        }, {new: true});
+
+        user.active_orders.push(order);
+        await user.save()
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
+            if(err) throw err;
+            res.cookie('token', token).json({user: user, order: order});
+
+        })
     
     }catch(error){
         console.log(error)
@@ -80,5 +84,6 @@ const getOrder = async (req, res) => {
 module.exports = {
     createOrder,
     getOrder,
-    getAllOrders
+    getAllOrders,
+    acceptOrder,
 }

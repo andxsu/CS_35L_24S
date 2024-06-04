@@ -103,6 +103,8 @@ const loginUser = async (req, res) => {
     }
 }
 
+
+//maybe make this make new cookies every time??
 const getProfile = async (req, res) => {
     const {token} = req.cookies;
     if(token){
@@ -113,7 +115,6 @@ const getProfile = async (req, res) => {
     }else{
         res.json(null)
     }
-    
 }
 const logoutUser = async(req, res) => {
     res.clearCookie('token');

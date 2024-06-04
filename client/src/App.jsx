@@ -9,7 +9,8 @@ import {Toaster} from 'react-hot-toast';
 import {UserContextProvider} from '../context/userContext';
 import Dashboard from './pages/Dashboard';
 import CreateOrder from './pages/createOrder';
-import DeliveryDashboard from './pages/DeliveryDashboard'
+import DeliveryDashboard from './pages/DeliveryDashboard';
+import AcceptOrder from './pages/AcceptOrder';
 
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -28,6 +29,7 @@ function App() {
       <Route path = '/dashboard' element = {<Dashboard />} />
       <Route path = '/order' element = {<CreateOrder />} />
       <Route path = '/deliverydashboard' element = {<DeliveryDashboard/>} />
+      <Route path = '/acceptorder/:orderId' element = {<AcceptOrder/>} />
     
     </Routes>
     </UserContextProvider>

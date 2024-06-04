@@ -70,6 +70,26 @@ const acceptOrder = async (req, res) => {
     }
 }
 
+const completeOrder = async (req, res) => {
+    try {
+        const {actualOrderId} = req.body
+        const order = await Order.findByIdAndUpdate(actualOrderId, {
+            completed: true,
+        }, {new: true});
+
+        const user = await User.findOne({username: order.deliverer_username});
+
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
+            if(err) throw err;
+            res.cookie('token', token).json({user: user, order: order});
+
+        })
+    
+    }catch(error){
+        console.log(error)
+    }
+}
+
 const getOrder = async (req, res) => {
     try {
         const{orderId} = req.query;
@@ -87,4 +107,5 @@ module.exports = {
     getOrder,
     getAllOrders,
     acceptOrder,
+    completeOrder,
 }

@@ -9,6 +9,7 @@ export default function OrdersDashboard() {
     const [loading, setLoading] = useState(true);
     const {user, setUser, fetchUserData} = useContext(UserContext);
     const navigate = useNavigate();
+    const [pastOrders, setPastOrders] = useState([])
     // console.log(user);
 
     const fetchAllOrders = async () => {
@@ -27,12 +28,21 @@ export default function OrdersDashboard() {
     useEffect(() => {
         fetchAllOrders().then((data) => {
             const availableOrders = data.filter(order => !order.active && !!order.creator_address);
-            const curOrders = data.filter(order => !!order.deliverer_username && order.deliverer_username == user.username)
+            
+            const curOrders = data.filter(order => !!order.deliverer_username && user && order.deliverer_username == user.username && !order.completed)
+            setMyOrders(curOrders);
+
+
+            const prevOrders = data.filter(order => !!order.deliverer_username && user && order.deliverer_username && order.completed)
+            setPastOrders(prevOrders)
+
+
+           
             setOrders(availableOrders);
-            setMyOrders(curOrders)
+            
             setLoading(false);
         });
-    }, []);
+    }, [user]);
 
 
     if(!user || user.user_type === "Customer"){
@@ -62,6 +72,7 @@ export default function OrdersDashboard() {
                                 <strong>Order:</strong> {order.food_order}<br />
                                 <strong>Ordered by:</strong> {order.creator_username}<br />
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
+                                <button onClick={() => navigate(`/completeorder/:${order._id}`)}>Mark as delivered</button>
                             </div>
                         </li>
                         
@@ -80,6 +91,27 @@ export default function OrdersDashboard() {
             ) : orders.length > 0 ? (
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {orders.map((order) => (
+                        <li key={order._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
+                            <div>
+                                <strong>Dining hall:</strong> {order.dining_hall}<br />
+                                <strong>Order:</strong> {order.food_order}<br />
+                                <strong>Ordered by:</strong> {order.creator_username}<br />
+                                <strong>Delivery address:</strong> {order.creator_address}<br />
+                                <button onClick={() => navigate(`/acceptorder/:${order._id}`)}>Accept Order</button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No orders found</p>
+            )}
+
+            <h1>Completed Orders</h1>
+            {loading ? (
+                <p>Loading...</p>
+            ) : pastOrders.length > 0 ? (
+                <ul style={{ listStyleType: 'none', padding: 0 }}>
+                    {pastOrders.map((order) => (
                         <li key={order._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', padding: '10px' }}>
                             <div>
                                 <strong>Dining hall:</strong> {order.dining_hall}<br />

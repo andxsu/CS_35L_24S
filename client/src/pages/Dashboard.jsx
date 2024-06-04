@@ -8,13 +8,11 @@ export default function Dashboard() {
     const [orders, setOrders] = useState([]);
     const [activeOrders, setActiveOrders] = useState([]);
     const [pastOrders, setPastOrders] = useState([])
-    const [loading, setLoading] = useState(true); // Add loading state
-    const {user, setUser, fetchUserData} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     
     const fetchOrderDetails = async () => {
         let orderDetails;
         
-         
         if (user && user.active_orders) {
             
             if (user.active_orders.length === 1) {
@@ -37,6 +35,7 @@ export default function Dashboard() {
                           const response = await axios.get(`/getorder?orderId=${orderId}`);
                           // console.log("response")
                           // console.log(response)
+                          console.log(response.data)
                           return response.data;
                       } catch (error) {
                           console.error('Error fetching order details:', error);
@@ -45,7 +44,8 @@ export default function Dashboard() {
                   })
               );
             }
-            setOrders(orderDetails.filter(order => order !== null));
+            setActiveOrders(orderDetails.filter(order => !order.completed));
+            setPastOrders(orderDetails.filter(order => order.completed));
         }
     };
     
@@ -97,11 +97,11 @@ export default function Dashboard() {
               </Link>
             )}
             <h2 style={{ marginBottom: '20px', padding: '15px', fontSize: '30px', color: '#555' }}>
-              Your orders:
+              Active orders:
             </h2>
-            {orders.length > 0 ? (
+            {activeOrders.length > 0 ? (
               <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {[...orders].reverse().map(order => (
+                {[...activeOrders].reverse().map(order => (
                   <li key={order.orderId} style={{
                     border: '1px solid #ccc',
                     borderRadius: '10px',
@@ -115,7 +115,7 @@ export default function Dashboard() {
                     <div>
                       <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
                       <strong>Order:</strong> {order.orderDetails.food_order}<br />
-                      <strong>Status:</strong> {order.orderDetails.out_for_delivery ? 'Out for delivery' : 'Waiting for pickup'}<br />
+                      <strong>Status:</strong> {order.orderDetails.active ? 'Out for delivery' : 'Waiting for pickup'}<br />
                     </div>
                   </li>
                 ))}
@@ -123,6 +123,43 @@ export default function Dashboard() {
             ) : (
               <p>No active orders</p>
             )}
+
+<h2 style={{ marginBottom: '20px', padding: '15px', fontSize: '30px', color: '#555' }}>
+              Previous orders:
+            </h2>
+            {pastOrders.length > 0 ? (
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                {[...pastOrders].reverse().map(order => (
+                  <li key={order.orderId} style={{
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    marginBottom: '10px',
+                    padding: '20px',
+                    fontSize: '18px',
+                    backgroundColor: '#f9f9f9',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                    color: '#555'
+                  }}>
+                    <div>
+                      <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
+                      <strong>Order:</strong> {order.orderDetails.food_order}<br />
+                      <strong>Status:</strong> {order.orderDetails.active ? 'Out for delivery' : 'Waiting for pickup'}<br />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p style={{
+                border: '1px solid #ccc',
+                borderRadius: '10px',
+                marginBottom: '10px',
+                padding: '20px',
+                fontSize: '18px',
+                backgroundColor: '#f9f9f9',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                color: '#555'}} >No previous orders found :\</p>
+            )}
           </div>
+  
     );
 }

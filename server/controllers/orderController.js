@@ -10,6 +10,8 @@ const createOrder = async (req, res) => {
             dining_hall,
             creator_username,
             creator_address: user.address,
+            creator_phone: user.phoneNum,
+            creator_venmo: user.venmo,
             food_order,
             notes_for_deliverer,
             active: false,

@@ -55,6 +55,9 @@ export default function CompleteOrder (){
                 <strong>Order:</strong> {orderDetails.food_order}<br />
                 <strong>Ordered by:</strong> {orderDetails.creator_username}<br />
                 <strong>Delivery address:</strong> {orderDetails.creator_address}<br />
+                <strong>Contact info:</strong> {orderDetails.creator_phone} <br />
+                <strong>Venmo:</strong>{orderDetails.creator_venmo} <br />
+                <strong>Notes: </strong>{orderDetails.notes_for_deliverer} <br />
             </div>)}
         </div>
     )

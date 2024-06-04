@@ -72,6 +72,9 @@ export default function OrdersDashboard() {
                                 <strong>Order:</strong> {order.food_order}<br />
                                 <strong>Ordered by:</strong> {order.creator_username}<br />
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
+                                <strong>Contact info:</strong> {order.creator_phone} <br />
+                                <strong>Venmo:</strong>{order.creator_venmo} <br />
+                                <strong>Notes: </strong>{order.notes_for_deliverer} <br />
                                 <button onClick={() => navigate(`/completeorder/:${order._id}`)}>Mark as delivered</button>
                             </div>
                         </li>
@@ -97,6 +100,9 @@ export default function OrdersDashboard() {
                                 <strong>Order:</strong> {order.food_order}<br />
                                 <strong>Ordered by:</strong> {order.creator_username}<br />
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
+                                <strong>Contact info:</strong> {order.creator_phone} <br />
+                                <strong>Venmo:</strong>{order.creator_venmo} <br />
+                                <strong>Notes: </strong>{order.notes_for_deliverer} <br />
                                 <button onClick={() => navigate(`/acceptorder/:${order._id}`)}>Accept Order</button>
                             </div>
                         </li>
@@ -118,7 +124,9 @@ export default function OrdersDashboard() {
                                 <strong>Order:</strong> {order.food_order}<br />
                                 <strong>Ordered by:</strong> {order.creator_username}<br />
                                 <strong>Delivery address:</strong> {order.creator_address}<br />
-                                <button onClick={() => navigate(`/acceptorder/:${order._id}`)}>Accept Order</button>
+                                <strong>Contact info:</strong> {order.creator_phone} <br />
+                                <strong>Venmo:</strong>{order.creator_venmo} <br />
+                                <strong>Notes: </strong>{order.notes_for_deliverer} <br />
                             </div>
                         </li>
                     ))}

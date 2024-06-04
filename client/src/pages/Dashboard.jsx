@@ -16,11 +16,19 @@ export default function Dashboard() {
         if (user && user.active_orders) {
             
             if (user.active_orders.length === 1) {
+                let orderId
+                if(typeof user.active_orders[0] === "string"){
+                  orderId = user.active_orders[0];
+                }
+                else{
+                  orderId = user.active_orders[0]._id;
+                }
                 
-                const orderId = user.active_orders[0]._id;
+                // console.log(typeof user.active_orders[0]);
                 try{
                     const response = await axios.get(`/getorder?orderId=${orderId}`);
                     orderDetails = [response.data]
+                    // console.log(orderDetails);
                 } 
                 catch(error) {
                     console.log("Error fetching order details in Dashboard");
@@ -43,7 +51,10 @@ export default function Dashboard() {
                       }
                   })
               );
+
             }
+
+            console.log(orderDetails);
 
           
             setActiveOrders(orderDetails.filter(order => !order.orderDetails.completed));
@@ -54,8 +65,8 @@ export default function Dashboard() {
     
       useEffect(() => {
         fetchOrderDetails();
-        console.log(activeOrders);
-        console.log(pastOrders);
+        // console.log(activeOrders);
+        // console.log(pastOrders);
 
       },[user])
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BuildYourOwnBurritoBowl } from "./BuildYourOwn";
 import { BuildYourOwnRendeWestSalad } from "./BuildYourOwn";
@@ -10,20 +10,17 @@ import { BuildYourOwnSandwich } from "./BuildYourOwn";
 import { BuildYourOwnStudySalad } from "./BuildYourOwn";
 import { BuildYourOwnBreakfastSkillet } from "./BuildYourOwn";
 import { BuildYourOwnBagel } from "./BuildYourOwn";
-import {useContext} from 'react';
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import {UserContext} from '../../context/userContext';
-
+import { UserContext } from '../../context/userContext';
 
 export default function CreateOrder() {
 
-const params = useParams();
-const navigate = useNavigate();
-const {user, fetchUserData} = useContext(UserContext);
+  const params = useParams();
+  const navigate = useNavigate();
+  const { user, fetchUserData } = useContext(UserContext);
 
-
-const [form, setForm] = useState({
+  const [form, setForm] = useState({
     dining_hall: '',
     creator_username: '',
     food_order: '',
@@ -51,24 +48,12 @@ const [form, setForm] = useState({
     bagel: '',
     active: true,
     out_for_delivery: false,
-})
-
-  useEffect(() => {
-    if (user){
-        setForm(prevData => ({
-            ...prevData,
-            creator_username: user.username,
-        }))
-    }
-  }, [user, navigate]);
-
-  // if(!user){
-  //   navigate('/login')
-  // }
-
+  });
 
   const [isNew, setIsNew] = useState(true);
   const [menuItems, setMenuItems] = useState([]);
+  const [favoriteItems, setFavoriteItems] = useState([]);
+  const [buildYourOwnForm, setBuildYourOwnForm] = useState({});
 
   const buildYourOwnItems = [
     "Build your own bowl",
@@ -78,18 +63,38 @@ const [form, setForm] = useState({
     "Build your own sandwich",
     "Build your own study salad", "Build your own bagel", "Build your own breakfast skillet", "Build your own tacos", "Build your own taco salad", "Build your own Rende West salad"
   ];
-  const [buildYourOwnForm, setBuildYourOwnForm] = useState({});
 
+  useEffect(() => {
+    if (user) {
+      setForm(prevData => ({
+        ...prevData,
+        creator_username: user.username,
+      }));
+    }
+  }, [user, navigate]);
 
-  
+  useEffect(() => {
+    const fetchFavoriteItems = async () => {
+      try {
+        const response = await axios.get('/favoriteorders');
+        setFavoriteItems(response.data);
+      } catch (error) {
+        console.error('Error fetching favorite items:', error);
+      }
+    };
+
+    fetchFavoriteItems();
+  }, []);
+
   function updateForm(value) {
     setForm((prev) => ({ ...prev, ...value }));
     setBuildYourOwnForm((prev) => ({ ...prev, ...value }));
   }
+
   useEffect(() => {
     const diningHallsMenus = {
       "Rendezvous East": ["California Sushi Bowl"],
-      "Rendezvous West": ["Build your own burrito", "Build your own burrito bowl", "Build your own tacos","Build your own taco salad","Build your own Rende West salad", "Chicken Quesadillas"],
+      "Rendezvous West": ["Build your own burrito", "Build your own burrito bowl", "Build your own tacos", "Build your own taco salad", "Build your own Rende West salad", "Chicken Quesadillas"],
       "The Study": ["Build your own bagel", "Build your own breakfast skillet", "Build your own pizza", "Build your own sandwich", "Build your own study salad", "Pretzel and sausage platter", "Swiss fondue frites", "Cream and fruits waffle", "Nutella Waffle", "Coffee"],
       "The Drey": ["California Roll", "Cucumber avocado roll", "Berry Smoothie", "Roast Beef Sandwich", "BLT"],
       "Bruin Cafe": ["BBQ Beef Brisket Sandwich", "Buffalo Sandwich", "Cheesesteak", "Chicken Caesar", "The Cuban"]
@@ -98,67 +103,62 @@ const [form, setForm] = useState({
     setMenuItems(diningHallsMenus[form.dining_hall] || []);
   }, [form.dining_hall]);
 
-  const createorder = async (e) => {
+  const createOrder = async (e) => {
     e.preventDefault();
     const concatenatedOrder = [
-        form.protein && `Protein: ${form.protein}`,
-        form.side1 && `Side 1: ${form.side1}`,
-        form.side2 && `Side 2: ${form.side2}`,
-        form.toppings1.length > 0 && `Toppings 1: ${form.toppings1.join(', ')}`,
-        form.toppings2 && `Toppings 2: ${form.toppings2}`,
-        form.toppings3 && `Toppings 3: ${form.toppings3}`,
-        form.beverage && `Beverage: ${form.beverage}`,
-        form.sauce && `Sauce: ${form.sauce}`,
-        form.cheese && `Cheese: ${form.cheese}`,
-        form.topping && `Topping: ${form.topping}`,
-        form.addOns1 && `Add-Ons 1: ${form.addOns1}`,
-        form.addOns2 && `Add-Ons 2: ${form.addOns2}`,
-        form.addOns3 && `Add-Ons 3: ${form.addOns3}`,
-        form.bread && `Bread: ${form.bread}`,
-        form.spreadsCondiments.length > 0 && `Spreads/Condiments: ${form.spreadsCondiments.join(', ')}`,
-        form.greens && `Greens: ${form.greens}`,
-        form.dressing && `Dressing: ${form.dressing}`,
-        form.croutons && `Croutons: ${form.croutons}`,
-        form.eggs && `Eggs: ${form.eggs}`,
-        form.bagel && `Bagel: ${form.bagel}`,
+      form.protein && `Protein: ${form.protein}`,
+      form.side1 && `Side 1: ${form.side1}`,
+      form.side2 && `Side 2: ${form.side2}`,
+      form.toppings1.length > 0 && `Toppings 1: ${form.toppings1.join(', ')}`,
+      form.toppings2 && `Toppings 2: ${form.toppings2}`,
+      form.toppings3 && `Toppings 3: ${form.toppings3}`,
+      form.beverage && `Beverage: ${form.beverage}`,
+      form.sauce && `Sauce: ${form.sauce}`,
+      form.cheese && `Cheese: ${form.cheese}`,
+      form.topping && `Topping: ${form.topping}`,
+      form.addOns1 && `Add-Ons 1: ${form.addOns1}`,
+      form.addOns2 && `Add-Ons 2: ${form.addOns2}`,
+      form.addOns3 && `Add-Ons 3: ${form.addOns3}`,
+      form.bread && `Bread: ${form.bread}`,
+      form.spreadsCondiments.length > 0 && `Spreads/Condiments: ${form.spreadsCondiments.join(', ')}`,
+      form.greens && `Greens: ${form.greens}`,
+      form.dressing && `Dressing: ${form.dressing}`,
+      form.croutons && `Croutons: ${form.croutons}`,
+      form.eggs && `Eggs: ${form.eggs}`,
+      form.bagel && `Bagel: ${form.bagel}`,
     ].filter(Boolean).join(', ').replace(/[\r\n\s]{2,}/gm, " ");
 
-    const { 
-      dining_hall, 
-      creator_username, 
+    const {
+      dining_hall,
+      creator_username,
       food_order,
-      notes_for_deliverer, 
-      active, 
-      out_for_delivery 
-    } = { 
-        dining_hall: form.dining_hall, 
-        creator_username: form.creator_username, 
-        food_order: form.food_order.trim() ? form.food_order : concatenatedOrder, 
-        notes_for_deliverer: form.notes_for_deliverer, 
-        active: form.active, 
-        out_for_delivery: form.out_for_delivery 
+      notes_for_deliverer,
+      active,
+      out_for_delivery
+    } = {
+      dining_hall: form.dining_hall,
+      creator_username: form.creator_username,
+      food_order: form.food_order.trim() ? form.food_order : concatenatedOrder,
+      notes_for_deliverer: form.notes_for_deliverer,
+      active: form.active,
+      out_for_delivery: form.out_for_delivery
     };
 
     try {
-        const {data} = await axios.post('/order', {dining_hall, creator_username, food_order, notes_for_deliverer, active, out_for_delivery})
-        if(data.error){
-            toast.error(data.error)
-        }
-        else{
-            console.log("Final form state")
-            console.log(form)
-            setForm({});
-            setBuildYourOwnForm({});
-            console.log("Data sent back")
-            console.log(data);
-            toast.success('Order created!');
-            await fetchUserData();
-            navigate('/dashboard');
-        }
+      const { data } = await axios.post('/order', { dining_hall, creator_username, food_order, notes_for_deliverer, active, out_for_delivery });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setForm({});
+        setBuildYourOwnForm({});
+        toast.success('Order created!');
+        await fetchUserData();
+        navigate('/dashboard');
+      }
     } catch (error) {
-        
+      console.error('Error creating order:', error);
     }
-}
+  }
 
   function renderBuildYourOwnForm() {
     switch (form.food_order) {
@@ -187,14 +187,9 @@ const [form, setForm] = useState({
     }
   }
 
-
-  // if(!user){
-  //   navigate('/login')
-  // }
-
   return (
     <>
-      <form onSubmit={createorder} className="border rounded-lg overflow-hidden p-4" >
+      <form onSubmit={createOrder} className="border rounded-lg overflow-hidden p-4">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-slate-900/10 pb-12 md:grid-cols-2">
           <div>
             <h2 className="text-base font-semibold leading-7 text-slate-900">
@@ -205,7 +200,7 @@ const [form, setForm] = useState({
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
             <div>
               <fieldset className="mt-4">
-              <legend className="sr-only ">Food</legend>
+                <legend className="sr-only">Food</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                   <div className="flex items-center">
                     <input
@@ -312,7 +307,30 @@ const [form, setForm] = useState({
               </div>
             </div>
             <div className="sm:col-span-4">
-            {renderBuildYourOwnForm()}
+              <label htmlFor="favoriteItems" className="block text-sm font-medium leading-6 text-slate-900" style={{ fontSize: '20px' }}>
+                Favorite Items
+              </label>
+              <div className="mt-2">
+                <select
+                  id="favoriteItems"
+                  name="favoriteItems"
+                  className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  value={form.food_order}
+                  onChange={(e) => updateForm({ food_order: e.target.value })}
+                >
+                  <option value="">
+                    {form.food_order ? form.food_order : "Select a Favorite Item"}
+                  </option>
+                  {favoriteItems.map((item, index) => (
+                    <option key={index} value={item.food_order}>
+                      {item.food_order}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              {renderBuildYourOwnForm()}
             </div>
             <div className="sm:col-span-4">
               <label htmlFor="notes" style={{ fontSize: '20px' }} className="block text-sm font-medium leading-6 text-slate-900">
@@ -328,7 +346,6 @@ const [form, setForm] = useState({
                     placeholder="Leave it at my door..."
                     value={form.notes_for_deliverer}
                     onChange={(e) => updateForm({ notes_for_deliverer: e.target.value })}
-                    
                   />
                 </div>
               </div>
@@ -353,7 +370,4 @@ const [form, setForm] = useState({
     </>
   );
 }
-
-
-
 

@@ -19,7 +19,7 @@ const createOrder = async (req, res) => {
         });
         user.active_orders.push(order)
         await user.save();
-        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
             if(err) throw err;
             res.cookie('token', token).json({user: user, order: order});
 
@@ -33,16 +33,37 @@ const createOrder = async (req, res) => {
     }
 }
 
-// const updateOrder = async (req, res) => {
-//     try {
-//         const {active, completed, deliverer_username} = req.query;
-//         const order = await Order.findOne({_id: orderId});
-        
-//     } catch (error) {
-        
-//     }
-// }
 
+
+const getAllOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({});
+        res.json(orders)
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+const acceptOrder = async (orderId, delivererUsername) => {
+    try {
+        const result = await Order.updateOne(
+            {_id: orderId},
+            {
+                $set: {
+                    active: true,
+                    deliverer_username: delivererUsername
+                }
+            }
+        );
+
+        return result;
+    
+    }catch(error){
+        console.log(error)
+    }
+}
 
 const getOrder = async (req, res) => {
     try {
@@ -59,4 +80,5 @@ const getOrder = async (req, res) => {
 module.exports = {
     createOrder,
     getOrder,
+    getAllOrders
 }

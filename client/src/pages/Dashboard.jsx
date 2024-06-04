@@ -6,14 +6,19 @@ import axios from 'axios';
 export default function Dashboard() {
     // const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
+    const [activeOrders, setActiveOrders] = useState([]);
+    const [pastOrders, setPastOrders] = useState([])
     const [loading, setLoading] = useState(true); // Add loading state
     const {user, setUser, fetchUserData} = useContext(UserContext);
     
     const fetchOrderDetails = async () => {
         let orderDetails;
+        
          
         if (user && user.active_orders) {
+            
             if (user.active_orders.length === 1) {
+                
                 const orderId = user.active_orders[0]._id;
                 try{
                     const response = await axios.get(`/getorder?orderId=${orderId}`);
@@ -25,28 +30,28 @@ export default function Dashboard() {
                 }
             }
             else{
-                    orderDetails = await Promise.all(
-                    user.active_orders.map(async orderId => {
-                        try {
-                            const response = await axios.get(`/getorder?orderId=${orderId}`);
-                            // console.log("Creator")
-                            // console.log(response.data.creator)
-                            
-                            return response.data;
-                        } catch (error) {
-                            console.error('Error fetching order details:', error);
-                            return null;
-                        }
-                    })
-                );
+                  orderDetails = await Promise.all(
+                  user.active_orders.map(async orderId => {
+                      try {
+                          
+                          const response = await axios.get(`/getorder?orderId=${orderId}`);
+                          // console.log("response")
+                          // console.log(response)
+                          return response.data;
+                      } catch (error) {
+                          console.error('Error fetching order details:', error);
+                          return null;
+                      }
+                  })
+              );
             }
-            
             setOrders(orderDetails.filter(order => order !== null));
         }
     };
     
     useEffect(() => {
         fetchOrderDetails()
+  
     }, [user]);
 
     const orderLinkStyle = {

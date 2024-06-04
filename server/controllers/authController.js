@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
         const match = await comparePassword(hashPassword(password), user.password);
         if(match){
             // res.json("Success!")
-            jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
                 if(err) throw err;
                 res.cookie('token', token).json(user)
             })
@@ -149,7 +149,7 @@ const forgotPassword = async(req, res) => {
                 from: 'ucla.cs35w.s24@gmail.com',
                 to: query.email.toString(),
                 subject: 'Your password was reset!',
-                html: "Hi from CS35W! We've received a request to rest your password. Your temporary password is: <b>" + newPassword + "</b>.<br>If this wasn't you, please login to your account using this password as soon as possible and change your password.<hr>All the best,<br>The CS35W team."
+                html: "Hi from CS35W! We've received a request to reset your password. Your temporary password is: <b>" + newPassword + "</b>.<br>If this wasn't you, please login to your account using this password as soon as possible and change your password.<hr>All the best,<br>The CS35W team."
             }, async function(error, info){
                 //console.log("an attempt to send the email was made");
                 if (error) {

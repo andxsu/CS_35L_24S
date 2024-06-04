@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const {test, registerUser, loginUser, getProfile, logoutUser, forgotPassword, updateUser, deleteUser} = require('../controllers/authController');
-const {createOrder, getOrder} = require('../controllers/orderController');
+const {createOrder, getOrder, getAllOrders} = require('../controllers/orderController');
 //middleware
 router.use(
     cors({
@@ -24,6 +24,7 @@ router.delete('/delete', deleteUser);
 //order routes
 router.post('/order', createOrder);
 router.get('/getorder', getOrder);
+router.get('/getallorders', getAllOrders);
 
 
 module.exports = router;

@@ -167,7 +167,7 @@ const forgotPassword = async(req, res) => {
               });
         }
         else{
-            res.status(500).send("User not found");
+            return res.json({error: "No user with that email found"});
         }
     }
     catch (error){

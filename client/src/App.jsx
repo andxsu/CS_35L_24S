@@ -4,6 +4,7 @@ import Navbar from '../src/components/Navbar';
 import Home from '../src/pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Forgot from './pages/Forgot';
 import axios from 'axios';
 import {Toaster} from 'react-hot-toast';
 import {UserContextProvider} from '../context/userContext';
@@ -26,6 +27,7 @@ function App() {
     <Routes>
       <Route path='/' element = {<Home />} />
       <Route path='/register' element = {<Register />} />
+      <Route path='/forgot' element = {<Forgot/>} />
       <Route path='/login' element = {<Login />} />
       <Route path = '/dashboard' element = {<Dashboard />} />
       <Route path = '/order' element = {<CreateOrder />} />

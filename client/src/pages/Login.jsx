@@ -28,12 +28,7 @@ export default function Login() {
             } else {
 
                 await fetchUserData();
-                if(user && user.user_type === "Customer"){
-                    navigate('/dashboard');
-                }
-                else if (user && user.user_type === "Deliverer"){
-                    navigate('/deliverydashboard')
-                }
+                navigate('/')
                 
             }
         } catch (error) {

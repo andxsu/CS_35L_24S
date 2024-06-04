@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Dashboard() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [activeOrders, setActiveOrders] = useState([]);
     const [pastOrders, setPastOrders] = useState([])
@@ -35,7 +35,7 @@ export default function Dashboard() {
                           const response = await axios.get(`/getorder?orderId=${orderId}`);
                           // console.log("response")
                           // console.log(response)
-                          console.log(response.data)
+                          // console.log(response.data)
                           return response.data;
                       } catch (error) {
                           console.error('Error fetching order details:', error);
@@ -44,15 +44,32 @@ export default function Dashboard() {
                   })
               );
             }
-            setActiveOrders(orderDetails.filter(order => !order.completed));
-            setPastOrders(orderDetails.filter(order => order.completed));
+
+          
+            setActiveOrders(orderDetails.filter(order => !order.orderDetails.completed));
+            setPastOrders(orderDetails.filter(order => order.orderDetails.completed));
         }
-    };
+      };
+
     
-    useEffect(() => {
-        fetchOrderDetails()
-  
-    }, [user]);
+      useEffect(() => {
+        fetchOrderDetails();
+        console.log(activeOrders);
+        console.log(pastOrders);
+
+      },[user])
+
+
+
+    if(!user || user.user_type === "Deliverer"){
+        return(
+            <div>
+                <h1>You do not have access to this page!</h1>
+            </div>
+        )
+    }
+
+    
 
     const orderLinkStyle = {
         fontSize: '24px',          // Increase the font size of the "Place an order" link
@@ -143,7 +160,7 @@ export default function Dashboard() {
                     <div>
                       <strong>Dining hall:</strong> {order.orderDetails.dining_hall}<br />
                       <strong>Order:</strong> {order.orderDetails.food_order}<br />
-                      <strong>Status:</strong> {order.orderDetails.active ? 'Out for delivery' : 'Waiting for pickup'}<br />
+                      <strong>Status:</strong> Completed <br />
                     </div>
                   </li>
                 ))}

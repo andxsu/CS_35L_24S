@@ -23,17 +23,23 @@ export default function Navbar() {
 
     return (
         <nav style={navStyle}>
-            <Link to='/' style={linkStyle}>Home</Link>
-            {!user ? (
-                <>
-                    <Link to='/login' style={linkStyle}>Login</Link>
-                </>
-            ) : (
-                <>
+        <Link to='/' style={linkStyle}>Home</Link>
+        {!user ? (
+            <>
+                <Link to='/login' style={linkStyle}>Login</Link>
+            </>
+        ) : (
+            <>
+                
+                {user.user_type === 'Deliverer' && (
+                    <Link to='/deliverydashboard' style={linkStyle}>Delivery Dashboard</Link>
+                )}
+                {user.user_type === 'Customer' && (
                     <Link to='/dashboard' style={linkStyle}>Dashboard</Link>
-                    <button onClick={logout} style={linkStyle}>Logout</button>
-                </>
-            )}
-        </nav>
+                )}
+                <button onClick={logout} style={linkStyle}>Logout</button>
+            </>
+        )}
+    </nav>
     );
 }

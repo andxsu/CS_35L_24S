@@ -13,6 +13,7 @@ export default function Navbar() {
         padding: '0px',
         gap: '30px',
         fontSize: '25px',
+        marginBottom: '15px'
     };
 
     const linkStyle = {

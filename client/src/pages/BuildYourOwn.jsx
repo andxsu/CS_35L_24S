@@ -11,11 +11,11 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
     const toppingsOptions = [
       "Shredded Lettuce", "Shredded Cheese", "Guacamole", "Pico De Gallo", "None"
     ];
-  
+    
     return (
       <div className="space-y-4">
         <div className="space-y-4">
-          <label htmlFor="Protein" className="block text-lg font-medium leading-6 text-slate-900 mb-2">
+          <label htmlFor="Protein" className="block text-lg font-medium leading-6 text-slate-900 mb-2" style={{ fontSize: '20px' }}>
             Protein
           </label>
           <div className="space-y-4">
@@ -40,7 +40,7 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
         </div>
   
         <div className="space-y-4">
-          <label htmlFor="Side 1" className="block text-lg font-medium leading-6 text-slate-900 mb-2">
+          <label htmlFor="Side 1" className="block text-lg font-medium leading-6 text-slate-900 mb-2" style={{ fontSize: '20px' }}>
             Sides (1/2)
           </label>
           <div className="space-y-4">
@@ -63,7 +63,7 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
         </div>
   
         <div className="space-y-4">
-          <label htmlFor="Side 2" className="block text-lg font-medium leading-6 text-slate-900 mb-2">
+          <label htmlFor="Side 2" className="block text-lg font-medium leading-6 text-slate-900 mb-2" style={{ fontSize: '20px' }}>
             Sides (2/2)
           </label>
           <div className="space-y-4">
@@ -86,7 +86,7 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
         </div>
   
         <div className="space-y-4">
-          <label className="block text-lg font-medium leading-6 text-slate-900 mb-2">
+          <label className="block text-lg font-medium leading-6 text-slate-900 mb-2" style={{ fontSize: '20px' }}>
             Toppings 
           </label>
           {toppingsOptions.map((option) => (
@@ -105,7 +105,7 @@ export function BuildYourOwnBurritoBowl({ form, updateForm }) {
         </div>
   
         <div className="space-y-4">
-          <label htmlFor="beverage" className="block text-lg font-medium leading-6 text-slate-900 mb-2">
+          <label htmlFor="beverage" className="block text-lg font-medium leading-6 text-slate-900 mb-2" style={{ fontSize: '20px' }}>
             Beverage
           </label>
           <div className="space-y-4">
@@ -167,7 +167,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
             <option value="Vegan">Vegan</option>
         </select>
         </div>
-        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (1/2)
         </label>
         <div className="space-y-4">
@@ -188,7 +188,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (2/2)
         </label>
         <div className="space-y-4">
@@ -208,7 +208,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Toppings 
       </label>
       {toppingsOptions.map((option) => (
@@ -225,7 +225,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
         </div>
       ))}
 
-        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (1/2)
         </label>
         <div className="space-y-4">
@@ -245,7 +245,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (2/2)
         </label>
         <div className="space-y-4">
@@ -264,7 +264,7 @@ export function BuildYourOwnRendeWestSalad({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Beverage
         </label>
         <div className="space-y-4">
@@ -329,7 +329,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
             <option value="Vegetarian">Vegetarian</option>
         </select>
         </div>
-        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (1/2)
         </label>
         <div className="space-y-4">
@@ -350,7 +350,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (2/2)
         </label>
         <div className="space-y-4">
@@ -370,7 +370,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Toppings 
       </label>
       {toppingsOptions.map((option) => (
@@ -387,7 +387,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
         </div>
       ))}
 
-        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (1/2)
         </label>
         <div className="space-y-4">
@@ -407,7 +407,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (2/2)
         </label>
         <div className="space-y-4">
@@ -427,7 +427,7 @@ export function BuildYourOwnBurrito({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Beverage
         </label>
         <div className="space-y-4">
@@ -491,7 +491,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
             <option value="Tofu Sofrito">Tofu Sofrito</option>
         </select>
         </div>
-        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (1/2)
         </label>
         <div className="space-y-4">
@@ -512,7 +512,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (2/2)
         </label>
         <div className="space-y-4">
@@ -532,7 +532,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Toppings 
       </label>
       {toppingsOptions.map((option) => (
@@ -549,7 +549,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
         </div>
       ))}
 
-        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (1/2)
         </label>
         <div className="space-y-4">
@@ -569,7 +569,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (2/2)
         </label>
         <div className="space-y-4">
@@ -589,7 +589,7 @@ export function BuildYourOwnTacos({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Beverage
         </label>
         <div className="space-y-4">
@@ -653,7 +653,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
             <option value="Tofu Sofrito">Tofu Sofrito</option>
         </select>
         </div>
-        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (1/2)
         </label>
         <div className="space-y-4">
@@ -674,7 +674,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Side 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Sides (2/2)
         </label>
         <div className="space-y-4">
@@ -694,7 +694,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Toppings 
       </label>
       {toppingsOptions.map((option) => (
@@ -711,7 +711,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
         </div>
       ))}
 
-        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (1/2)
         </label>
         <div className="space-y-4">
@@ -731,7 +731,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="toppings 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Toppings (2/2)
         </label>
         <div className="space-y-4">
@@ -751,7 +751,7 @@ export function BuildYourOwnTacoSalad({ form, updateForm }) {
 
         </select>
         </div>
-        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="beverage" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
             Beverage
         </label>
         <div className="space-y-4">
@@ -783,7 +783,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
     return (
         <div className="space-y-4">
         
-        <label htmlFor="Sauce" className="block text-sm font-medium leading-6 text-slate-900">
+        <label htmlFor="Sauce" className="block text-sm font-medium leading-6 text-slate-900" style={{ fontSize: '20px' }}>
         Sauce
       </label>
       <div className="space-y-4">
@@ -793,6 +793,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
         className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         value={form.sauce || ""}
         onChange={(e) => updateForm({ sauce: e.target.value })}
+        
       >
         <option value="">Select a sauce</option>
         <option value="BBQ Sauce">BBQ Sauce</option>
@@ -805,7 +806,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
         <option value="No Sauce">No Sauce</option>
       </select>
       </div>
-      <label htmlFor="Cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Cheese
       </label>
       <div className="space-y-4">
@@ -823,7 +824,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
         <option value="No Cheese">No Cheese</option>
       </select>
       </div>
-      <label htmlFor="Topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Topping
       </label>
       <div className="space-y-4">
@@ -845,7 +846,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label htmlFor="Add-Ons 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Add-Ons 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (1/3)
       </label>
       <div className="space-y-4">
@@ -870,7 +871,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
 
       </select>
       </div>
-      <label htmlFor="Add-Ons 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Add-Ons 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (2/3)
       </label>
       <div className="space-y-4">
@@ -895,7 +896,7 @@ export function BuildYourOwnPizza({ form, updateForm }) {
 
       </select>
       </div>
-      <label htmlFor="addOns3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="addOns3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
     Add-Ons (3/3)
     </label>
     <div className="space-y-4">
@@ -939,7 +940,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
       ];
     return (
         <div className="space-y-4">
-        <label htmlFor="Bread" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="Bread" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Bread
       </label>
         <div className="space-y-4">
@@ -957,7 +958,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
             <option value="Whole Wheat Sourdough Bread">Whole Wheat Sourdough Bread</option>
       </select>
       </div>
-      <label htmlFor="Cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Cheese
       </label>
       <div className="space-y-4">
@@ -976,7 +977,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label htmlFor="Topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Topping
       </label>
       <div className="space-y-4">
@@ -1001,7 +1002,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label htmlFor="Add-Ons 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Add-Ons 1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (1/3)
       </label>
       <div className="space-y-4">
@@ -1027,7 +1028,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label htmlFor="Add-Ons 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Add-Ons 2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (2/3)
       </label>
       <div className="space-y-4">
@@ -1053,7 +1054,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label htmlFor="Add-Ons 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="Add-Ons 3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (3/3)
       </label>
       <div className="space-y-4">
@@ -1079,7 +1080,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
         <option value="None">None</option>
       </select>
       </div>
-      <label className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Spreads & Condiments (multiple)
       </label>
       {options.map((option) => (
@@ -1102,7 +1103,7 @@ export function BuildYourOwnSandwich({ form, updateForm }) {
 export function BuildYourOwnStudySalad({ form, updateForm }) {
     return (
         <div className="space-y-4">
-        <label htmlFor="greens" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="greens" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Greens
       </label>
       <div className="space-y-4">
@@ -1120,7 +1121,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="Romaine Lettuce">Romaine Lettuce</option>
       </select>
     </div>
-      <label htmlFor="toppings14" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="toppings14" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Toppings (1/4)
       </label>
       <div className="space-y-4">
@@ -1150,7 +1151,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
       </select>
     </div>
-    <label htmlFor="toppings2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+    <label htmlFor="toppings2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
     Toppings (2/4)
     </label>
     <div className="space-y-4">
@@ -1180,7 +1181,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
     </select>
     </div>
-    <label htmlFor="toppings3" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+    <label htmlFor="toppings3" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
     Toppings (3/4)
     </label>
     <div className="space-y-4">
@@ -1210,7 +1211,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
     </select>
     </div>
-    <label htmlFor="toppings4" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+    <label htmlFor="toppings4" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
     Toppings (4/4)
     </label>
     <div className="space-y-4">
@@ -1240,7 +1241,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
     </select>
     </div>
-      <label htmlFor="protein" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="protein" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Protein
       </label>
       <div className="space-y-4">
@@ -1261,7 +1262,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
       </select>
     </div>
-      <label htmlFor="dressing" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="dressing" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Dressing
       </label>
       <div className="space-y-4">
@@ -1282,7 +1283,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
         <option value="None">None</option>
       </select>
     </div>
-      <label htmlFor="croutons" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+      <label htmlFor="croutons" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Croutons
       </label>
       <div className="space-y-4">
@@ -1305,7 +1306,7 @@ export function BuildYourOwnStudySalad({ form, updateForm }) {
 export function BuildYourOwnBreakfastSkillet({ form, updateForm }) {
     return (
         <div className="space-y-4">
-        <label htmlFor="eggs" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="eggs" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Eggs
         </label>
         <div className="space-y-4">
@@ -1326,7 +1327,7 @@ export function BuildYourOwnBreakfastSkillet({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label htmlFor="topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Topping
         </label>
         <div className="space-y-4">
@@ -1354,7 +1355,7 @@ export function BuildYourOwnBagel({ form, updateForm }) {
     return (
         <div className="space-y-4">
         
-        <label htmlFor="bagel" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="bagel" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Bagel
         </label>
         <div className="space-y-4">
@@ -1374,7 +1375,7 @@ export function BuildYourOwnBagel({ form, updateForm }) {
             <option value="Wheat Bagel">Wheat Bagel</option>
             </select>
         </div>
-        <label htmlFor="topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="topping" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Topping
         </label>
         <div className="space-y-4">
@@ -1397,7 +1398,7 @@ export function BuildYourOwnBagel({ form, updateForm }) {
             <option value="None">None</option>
             </select>
             </div>
-        <label htmlFor="cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="cheese" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Spread or Sliced Cheese
         </label>
         <div className="space-y-4">
@@ -1420,7 +1421,7 @@ export function BuildYourOwnBagel({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label htmlFor="addOns1" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="addOns1" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (1/2)
         </label>
         <div className="space-y-4">
@@ -1445,7 +1446,7 @@ export function BuildYourOwnBagel({ form, updateForm }) {
             <option value="None">None</option>
         </select>
         </div>
-        <label htmlFor="addOns2" className="block text-sm font-medium leading-6 text-slate-900 mt-4">
+        <label htmlFor="addOns2" className="block text-sm font-medium leading-6 text-slate-900 mt-4" style={{ fontSize: '20px' }}>
         Add-Ons (2/2)
         </label>
         <div className="space-y-4">

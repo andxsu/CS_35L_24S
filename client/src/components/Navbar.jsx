@@ -34,6 +34,9 @@ export default function Navbar() {
                 {user.user_type === 'Deliverer' && (
                     <Link to='/deliverydashboard' style={linkStyle}>Delivery Dashboard</Link>
                 )}
+                {user.user_type === 'Deliverer' && (
+                    <Link to='/availableorders' style={linkStyle}>Available Orders</Link>
+                )}
                 {user.user_type === 'Customer' && (
                     <Link to='/dashboard' style={linkStyle}>Dashboard</Link>
                 )}

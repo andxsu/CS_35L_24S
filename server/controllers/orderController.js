@@ -104,6 +104,17 @@ const getOrder = async (req, res) => {
     }
 }
 
+const getSearchedOrders = async (req, res) => {
+    try {
+        const {searchQuery} = req.query;
+        const orders = await Order.find({dining_hall: searchQuery});
+        res.json(orders);
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
 module.exports = {
     createOrder,
     getOrder,

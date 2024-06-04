@@ -4,6 +4,26 @@ import axios from 'axios';
 import {toast} from 'react-hot-toast' ;
 import {useNavigate} from 'react-router-dom';
 
+const labelStyle = {
+    fontSize: '20px',
+    marginBottom: '10px',
+    display: 'block'
+};
+
+const inputStyle = {
+    fontSize: '18px',
+    padding: '10px',
+    width: '100%',
+    marginBottom: '20px',
+    boxSizing: 'border-box'
+};
+
+const buttonStyle = {
+    fontSize: '18px',
+    padding: '10px 20px',
+    cursor: 'pointer'
+};
+
 export default function Register(){
     const navigate = useNavigate();
     const [data, setData] = useState({

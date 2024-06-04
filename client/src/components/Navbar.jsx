@@ -31,6 +31,7 @@ export default function Navbar() {
             ) : (
                 <>
                     <Link to='/dashboard' style={linkStyle}>Dashboard</Link>
+                    <Link to='/update' style={linkStyle}>My Account</Link>
                     <button onClick={logout} style={linkStyle}>Logout</button>
                 </>
             )}

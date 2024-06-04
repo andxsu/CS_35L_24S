@@ -5,9 +5,11 @@ const jwt = require("jsonwebtoken");
 const createOrder = async (req, res) => {
     try {
         const {dining_hall, creator_username, food_order, notes_for_deliverer} = req.body;
+        const user = await User.findOne({username: creator_username});
         const order = await Order.create({
             dining_hall,
             creator_username,
+            creator_address: user.address,
             food_order,
             notes_for_deliverer,
             active: false,
@@ -15,7 +17,6 @@ const createOrder = async (req, res) => {
             deliverer_username: '',
 
         });
-        const user = await User.findOne({username: creator_username});
         user.active_orders.push(order)
         await user.save();
         jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
@@ -41,6 +42,7 @@ const createOrder = async (req, res) => {
         
 //     }
 // }
+
 
 const getOrder = async (req, res) => {
     try {

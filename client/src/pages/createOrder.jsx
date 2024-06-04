@@ -57,7 +57,7 @@ const [form, setForm] = useState({
     if (user){
         setForm(prevData => ({
             ...prevData,
-            creator_username: user.username
+            creator_username: user.username,
         }))
     }
   }, [user, navigate]);
@@ -145,13 +145,14 @@ const [form, setForm] = useState({
             toast.error(data.error)
         }
         else{
+            console.log("Final form state")
+            console.log(form)
             setForm({});
             setBuildYourOwnForm({});
+            console.log("Data sent back")
             console.log(data);
             toast.success('Order created!');
             await fetchUserData();
-            console.log("order user")
-            console.log(user);
             navigate('/dashboard');
         }
     } catch (error) {

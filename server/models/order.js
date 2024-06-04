@@ -4,6 +4,7 @@ const {Schema} = mongoose
 const orderSchema = new Schema({
     dining_hall: String,
     creator_username: String,
+    creator_address: String,
     food_order: String,
     notes_for_deliverer: String,
     active: { //true if chosen by a deliverer

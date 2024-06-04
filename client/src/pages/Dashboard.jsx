@@ -46,8 +46,6 @@ export default function Dashboard() {
     };
     
     useEffect(() => {
-        console.log("user")
-        console.log(user)
         fetchOrderDetails()
     }, [user]);
 

@@ -4,6 +4,26 @@ import axios from 'axios';
 import {toast} from 'react-hot-toast' ;
 import {useNavigate} from 'react-router-dom';
 
+const labelStyle = {
+    fontSize: '20px',
+    marginBottom: '10px',
+    display: 'block'
+};
+
+const inputStyle = {
+    fontSize: '18px',
+    padding: '10px',
+    width: '100%',
+    marginBottom: '20px',
+    boxSizing: 'border-box'
+};
+
+const buttonStyle = {
+    fontSize: '18px',
+    padding: '10px 20px',
+    cursor: 'pointer'
+};
+
 export default function Forgot(){
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -31,10 +51,11 @@ export default function Forgot(){
     return(
         <div>
             <form onSubmit={registerUser}>
-                <label>Email</label> 
-                <input type = 'text' placeholder = 'Enter email...' value = {data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
+                <h1 style={labelStyle}>Password help</h1>
+                <label style={labelStyle}>Email</label> 
+                <input style={inputStyle} type = 'text' placeholder = 'Enter email...' value = {data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
                
-                <button type = 'submit'>Submit</button>
+                <button style={buttonStyle} type = 'submit'>Rretrieve password</button>
             </form>
         </div>
     )

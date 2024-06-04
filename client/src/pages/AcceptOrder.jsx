@@ -15,7 +15,7 @@ export default function AcceptOrder (){
         try {
             const response = await axios.get(`/getorder?orderId=${actualOrderId}`);
             setOrderDetails(response.data.orderDetails);
-            console.log(orderDetails)
+            // console.log(orderDetails)
         } catch (error) {
             console.log(error)
         }
@@ -27,8 +27,9 @@ export default function AcceptOrder (){
     const acceptOrder = async () => {
         try{
             const delivery_username = user.username;
-            const {response} = await axios.post('/acceptorder', {orderId, delivery_username});
-            if(response.error){
+            const {data} = await axios.post('/acceptorder', {actualOrderId, delivery_username});
+            console.log(data);
+            if(data.error){
                 console.log("ERROR")
             }
             else{
@@ -44,7 +45,7 @@ export default function AcceptOrder (){
 
     useEffect(() => {
         fetchOrderDetails();
-        console.log(orderDetails);
+        // console.log(orderDetails);
         fetchUserData();
 
     }, [])
@@ -58,6 +59,7 @@ export default function AcceptOrder (){
                 <strong>Order:</strong> {orderDetails.food_order}<br />
                 <strong>Ordered by:</strong> {orderDetails.creator_username}<br />
                 <strong>Delivery address:</strong> {orderDetails.creator_address}<br />
+                <button onClick = {acceptOrder}>Accept</button>
 
 
             </div>)}

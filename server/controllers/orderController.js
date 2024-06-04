@@ -48,13 +48,14 @@ const getAllOrders = async (req, res) => {
 
 const acceptOrder = async (req, res) => {
     try {
-        const {orderId, accepter} = req.body
-        const user = await User.findOne({username: accepter});
+        const {actualOrderId, delivery_username} = req.body
+        const user = await User.findOne({username: delivery_username});
 
-        const order = await Order.findByIdAndUpdate(orderId, {
+        const order = await Order.findByIdAndUpdate(actualOrderId, {
             active: true,
-            deliverer_username: accepter,
+            deliverer_username: delivery_username,
         }, {new: true});
+
 
         user.active_orders.push(order);
         await user.save()

@@ -37,9 +37,10 @@ export default function Navbar() {
                 {user.user_type === 'Customer' && (
                     <Link to='/dashboard' style={linkStyle}>Dashboard</Link>
                 )}
+                <Link to='/update' style={linkStyle}>My Account</Link>
                 <button onClick={logout} style={linkStyle}>Logout</button>
             </>
-        )}
-    </nav>
+            )}
+        </nav>
     );
 }

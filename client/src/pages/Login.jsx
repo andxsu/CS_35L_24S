@@ -80,6 +80,10 @@ export default function Login() {
                 <div style={{ marginTop: '20px' }}>
                     <Link to='/register' style={{ fontSize: '18px' }}>Don't have an account? Register here</Link>
                 </div>
+
+                <div style={{ marginTop: '20px' }}>
+                    <Link to='/forgot' style={{ fontSize: '18px' }}>Forgot password?</Link>
+                </div>
             </form>
         </div>
     );

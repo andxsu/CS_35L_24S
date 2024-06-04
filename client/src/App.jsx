@@ -13,6 +13,7 @@ import CreateOrder from './pages/createOrder';
 import DeliveryDashboard from './pages/DeliveryDashboard';
 import AcceptOrder from './pages/AcceptOrder';
 import CompleteOrder from './pages/CompleteOrder';
+import Account from './pages/Account';
 
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -34,6 +35,7 @@ function App() {
       <Route path = '/deliverydashboard' element = {<DeliveryDashboard/>} />
       <Route path = '/acceptorder/:orderId' element = {<AcceptOrder/>} />
       <Route path = '/completeorder/:orderId' element = {<CompleteOrder />} />
+      <Route path = '/update' element = {<Account/>} />
     
     </Routes>
     </UserContextProvider>

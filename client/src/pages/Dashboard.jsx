@@ -12,21 +12,34 @@ export default function Dashboard() {
     const fetchOrderDetails = async () => {
          
         if (user && user.active_orders) {
-            // fetchUserData()
-            const orderDetails = await Promise.all(
-                user.active_orders.map(async orderId => {
-                    try {
-                        const response = await axios.get(`/getorder?orderId=${orderId}`);
-                        // console.log("Creator")
-                        // console.log(response.data.creator)
-                        
-                        return response.data;
-                    } catch (error) {
-                        console.error('Error fetching order details:', error);
-                        return null;
-                    }
-                })
-            );
+            if (user.active_orders.length === 1) {
+                const orderId = user.active_orders[0]._id;
+                try{
+                    const response = await axios.get(`/getorder?orderId=${orderId}`);
+                    orderDetails = [response.data]
+                } 
+                catch(error) {
+                    console.log("Error fetching order details in Dashboard");
+                    console.log(error)
+                }
+            }
+            else{
+                    orderDetails = await Promise.all(
+                    user.active_orders.map(async orderId => {
+                        try {
+                            const response = await axios.get(`/getorder?orderId=${orderId}`);
+                            // console.log("Creator")
+                            // console.log(response.data.creator)
+                            
+                            return response.data;
+                        } catch (error) {
+                            console.error('Error fetching order details:', error);
+                            return null;
+                        }
+                    })
+                );
+            }
+            
             setOrders(orderDetails.filter(order => order !== null));
         }
     };

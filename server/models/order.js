@@ -6,14 +6,15 @@ const orderSchema = new Schema({
     creator_username: String,
     food_order: String,
     notes_for_deliverer: String,
-    active: {
-        type: Boolean,
-        default: true,
-    },
-    out_for_delivery: {
+    active: { //true if chosen by a deliverer
         type: Boolean,
         default: false,
-    }
+    },
+    completed: { //true if done
+        type: Boolean,
+        default: false,
+    },
+    deliverer_username: String
 });
 
 const OrderModel = mongoose.model('Order', orderSchema);

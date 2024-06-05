@@ -8,14 +8,20 @@ export default function Dashboard() {
     const [orders, setOrders] = useState([]);
     const [activeOrders, setActiveOrders] = useState([]);
     const [pastOrders, setPastOrders] = useState([]);
-    const { user } = useContext(UserContext);
-
+    const { user, fetchUserData } = useContext(UserContext);
+    
     const fetchOrderDetails = async () => {
         let orderDetails;
-
+        
         if (user && user.active_orders) {
             if (user.active_orders.length === 1) {
-                let orderId = typeof user.active_orders[0] === "string" ? user.active_orders[0] : user.active_orders[0]._id;
+                let orderId;
+                if(typeof user.active_orders[0] === "string"){
+                  orderId = user.active_orders[0];
+                } else {
+                  orderId = user.active_orders[0]._id;
+                }
+                
                 try {
                     const response = await axios.get(`/getorder?orderId=${orderId}`);
                     orderDetails = [response.data];
@@ -42,18 +48,18 @@ export default function Dashboard() {
         }
     };
 
+    useEffect(() => {
+        fetchOrderDetails();
+    }, [user]);
+
     const toggleFavorite = async (orderId) => {
         try {
-            const response = await axios.post('/togglefavorite', { orderId });
-            fetchOrderDetails(); // Refresh the orders after toggling favorite
+            await axios.post('/togglefavorite', { orderId });
+            fetchOrderDetails();
         } catch (error) {
             console.error('Error toggling favorite:', error);
         }
     };
-
-    useEffect(() => {
-        fetchOrderDetails();
-    }, [user]);
 
     if (!user || user.user_type === "Deliverer") {
         return (
@@ -62,6 +68,15 @@ export default function Dashboard() {
             </div>
         );
     }
+
+    const orderLinkStyle = {
+        fontSize: '24px',
+        padding: '15px 35px',
+        backgroundColor: '#747bff',
+        color: '#fff',
+        borderRadius: '12px',
+        textDecoration: 'none',
+    };
 
     return (
         <div style={{
@@ -74,19 +89,21 @@ export default function Dashboard() {
             width: '50em',
             margin: '0 auto'
         }}>
-            <h1 style={{ marginBottom: '30px', fontSize: '40px', color: '#333' }}>
+            <h1 style={{ marginBottom:'30px', fontSize: '40px', color: '#333' }}>
                 {user ? `Dashboard for ${user.username}` : 'Dashboard'}
             </h1>
             {!!user && (
                 <Link to='/order' style={{
-                    fontSize: '24px',
-                    padding: '15px 35px',
-                    backgroundColor: '#747bff',
-                    color: '#fff',
-                    borderRadius: '12px',
-                    textDecoration: 'none',
+                    ...orderLinkStyle,
                     display: 'inline-block',
                     marginBottom: '10px',
+                    padding: '9px 24px',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    backgroundColor: '#747bff',
+                    color: '#fff',
+                    borderRadius: '10px',
+                    textDecoration: 'none',
                     transition: 'background-color 0.3s ease'
                 }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#357ABD'}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#747bff'}
@@ -116,9 +133,13 @@ export default function Dashboard() {
                                 <strong>Status:</strong> {order.orderDetails.active ? 'Out for delivery' : 'Waiting for pickup'}<br />
                                 <span
                                     onClick={() => toggleFavorite(order.orderId)}
-                                    style={{ cursor: 'pointer', color: order.orderDetails.favorite ? 'yellow' : 'gray' }}
+                                    style={{
+                                        cursor: 'pointer',
+                                        fontSize: '24px'
+                                    }}
+                                    title="Favorite this item"
                                 >
-                                    &#9733; {/* Star icon */}
+                                    {order.orderDetails.favorite ? '🌟' : '☆'}
                                 </span>
                             </div>
                         </li>
@@ -150,9 +171,13 @@ export default function Dashboard() {
                                 <strong>Status:</strong> Completed <br />
                                 <span
                                     onClick={() => toggleFavorite(order.orderId)}
-                                    style={{ cursor: 'pointer', color: order.orderDetails.favorite ? 'yellow' : 'gray' }}
+                                    style={{
+                                        cursor: 'pointer',
+                                        fontSize: '24px'
+                                    }}
+                                    title="Favorite this item"
                                 >
-                                    &#9733; {/* Star icon */}
+                                    {order.orderDetails.favorite ? '🌟' : '☆'}
                                 </span>
                             </div>
                         </li>

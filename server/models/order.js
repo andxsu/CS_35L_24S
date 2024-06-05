@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const {Schema} = mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const orderSchema = new Schema({
     dining_hall: String,
@@ -17,8 +17,13 @@ const orderSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    favorite: { // true if marked as favorite
+        type: Boolean,
+        default: false,
+    },
     deliverer_username: String
 });
 
 const OrderModel = mongoose.model('Order', orderSchema);
 module.exports = OrderModel;
+

@@ -93,31 +93,25 @@ const toggleFavorite = async (req, res) => {
     try {
         const { orderId } = req.body;
         const order = await Order.findById(orderId);
-
         if (!order) {
-            return res.status(404).send("Order not found");
+            return res.status(404).send('Order not found');
         }
-
-        order.favorite = true;
-
+        order.favorite = !order.favorite;
         await order.save();
         res.json(order);
     } catch (error) {
-        console.error('Error toggling favorite:', error);
-        res.status(500).send("Error toggling favorite status");
+        console.log(error);
+        res.status(500).send('Error toggling favorite status');
     }
 };
 
 const getFavoriteOrders = async (req, res) => {
     try {
-        const orders = await Order.find({});
-
-	const favoriteOrders = orders.filter(order => order.favorite === 'true');
-
+        const favoriteOrders = await Order.find({ favorite: true });
         res.json(favoriteOrders);
     } catch (error) {
-        console.error('Error fetching favorite orders:', error);
-        res.status(500).send("Error fetching favorite orders");
+        console.log(error);
+        res.status(500).send('Error fetching favorite orders');
     }
 };
 
@@ -130,4 +124,5 @@ module.exports = {
     toggleFavorite,
     getFavoriteOrders,
 };
+
 

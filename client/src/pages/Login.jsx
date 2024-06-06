@@ -40,16 +40,22 @@ export default function Login() {
     const labelStyle = {
         fontSize: '20px',
         marginBottom: '10px',
-        display: 'block'
+        display: 'block',
+        color: '#555'
     };
 
     const inputStyle = {
-        fontSize: '18px',
-        padding: '10px',
         width: '100%',
+        maxWidth: '600px',
+        padding: '10px 20px',
+        border: '2px solid #ddd',
+        borderRadius: '25px',
+        fontSize: '16px',
+        outline: 'none',
         marginBottom: '20px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
     };
+    
 
     const buttonStyle = {
         fontSize: '18px',

@@ -22,6 +22,45 @@ const params = useParams();
 const navigate = useNavigate();
 const {user, fetchUserData} = useContext(UserContext);
 
+const buttonStyle = {
+  fontSize: '24px',          
+  padding: '15px 35px',      // Increase padding for better appearance
+  backgroundColor: '#747bff', // Background color for the link
+  color: '#fff',             // Text color for better contrast
+  borderRadius: '12px',      // Rounded edges
+  textDecoration: 'none',    // Remove underline
+  display: 'inline-block',
+  marginBottom: '10px',
+  marginTop: '20px',
+  padding: '9px 24px',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  backgroundColor: '#747bff',
+  color: '#fff',
+  textDecoration: 'none',
+  transition: 'background-color 0.3s ease'
+};
+
+const labelStyle = {
+  fontSize: '20px',
+  marginBottom: '10px',
+  display: 'block',
+  color: '#555',
+  marginTop: '20px',
+};
+
+const inputStyle = {
+  width: '50%',
+  maxWidth: '600px',
+  padding: '10px 20px',
+  border: '2px solid #ddd',
+  borderRadius: '25px',
+  fontSize: '10px',
+  outline: 'none',
+  boxSizing: 'border-box',
+};
+
+
 
 const [form, setForm] = useState({
     dining_hall: '',
@@ -205,7 +244,7 @@ const [form, setForm] = useState({
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
             <div>
               <fieldset className="mt-4">
-              <legend className="sr-only ">Food</legend>
+              <legend>Location</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                   <div className="flex items-center">
                     <input
@@ -221,7 +260,7 @@ const [form, setForm] = useState({
                       htmlFor="dhallRendeEast"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Rende East
+                      Rende East &nbsp;
                     </label>
                     <input
                       id="dhallRendeWest"
@@ -236,7 +275,7 @@ const [form, setForm] = useState({
                       htmlFor="dhallRendeWest"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Rende West
+                      Rende West &nbsp;
                     </label>
                     <input
                       id="dhallStudy"
@@ -251,7 +290,7 @@ const [form, setForm] = useState({
                       htmlFor="dhallStudy"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      The Study
+                      The Study &nbsp;
                     </label>
                     <input
                       id="dhallBcaf"
@@ -266,7 +305,7 @@ const [form, setForm] = useState({
                       htmlFor="dhallBcaf"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
-                      Bruin Cafe
+                      Bruin Cafe &nbsp;
                     </label>
                     <input
                       id="dhallTheDrey"
@@ -288,7 +327,7 @@ const [form, setForm] = useState({
               </fieldset>
             </div>
             <div className="sm:col-span-4">
-              <label htmlFor="menuItem" className="block text-sm font-medium leading-6 text-slate-900" style={{ fontSize: '20px' }}>
+              <label htmlFor="menuItem" className="block text-sm font-medium leading-6 text-slate-900" style={labelStyle}>
                 Menu Item
               </label>
               <div className="mt-2">
@@ -315,12 +354,13 @@ const [form, setForm] = useState({
             {renderBuildYourOwnForm()}
             </div>
             <div className="sm:col-span-4">
-              <label htmlFor="notes" style={{ fontSize: '20px' }} className="block text-sm font-medium leading-6 text-slate-900">
+              <label htmlFor="notes" style={labelStyle} className="block text-sm font-medium leading-6 text-slate-900">
                 Notes for deliverer
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
+                    style={inputStyle}
                     type="text"
                     name="notes"
                     id="notes"
@@ -338,16 +378,7 @@ const [form, setForm] = useState({
         <input
           type="submit"
           value="Save"
-          className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
-          style={{
-            fontSize: '20px',
-            marginTop: '12px',
-            backgroundColor: '#747bff',
-            color: '#fff',
-            border: 'none', // Removes the white border
-            borderRadius: '15px', // Makes the button more rounded
-            padding: '8px'
-          }}
+          style={buttonStyle}
         />
       </form>
     </>

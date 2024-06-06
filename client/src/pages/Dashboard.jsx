@@ -82,13 +82,23 @@ export default function Dashboard() {
 
     
 
-    const orderLinkStyle = {
-        fontSize: '24px',          // Increase the font size of the "Place an order" link
+    const buttonStyle = {
+        fontSize: '24px',          
         padding: '15px 35px',      // Increase padding for better appearance
         backgroundColor: '#747bff', // Background color for the link
         color: '#fff',             // Text color for better contrast
         borderRadius: '12px',      // Rounded edges
         textDecoration: 'none',    // Remove underline
+        display: 'inline-block',
+        marginBottom: '10px',
+        padding: '9px 24px',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        backgroundColor: '#747bff',
+        color: '#fff',
+        borderRadius: '10px',
+        textDecoration: 'none',
+        transition: 'background-color 0.3s ease'
     };
 
     return (
@@ -106,19 +116,7 @@ export default function Dashboard() {
               {user ? `Dashboard for ${user.username}` : 'Dashboard'}
             </h1>
             {!!user && (
-              <Link to='/order' style={{
-                ...orderLinkStyle,
-                display: 'inline-block',
-                marginBottom: '10px',
-                padding: '9px 24px',
-                fontSize: '18px',
-                fontWeight: 'bold',
-                backgroundColor: '#747bff',
-                color: '#fff',
-                borderRadius: '10px',
-                textDecoration: 'none',
-                transition: 'background-color 0.3s ease'
-              }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#357ABD'}
+              <Link to='/order' style={buttonStyle} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#357ABD'}
                 onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#747bff'}
               >
                 Place an order

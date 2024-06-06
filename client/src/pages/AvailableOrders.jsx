@@ -70,7 +70,19 @@ export default function OrdersDashboard() {
     return (
         <div>
             <h1>Available Orders</h1>
-            <SearchBar setFilter={setFilter} />
+            <div style={{
+                position: 'relative',
+                paddingBottom: '100px',
+                backgroundColor: 'white',
+                borderRadius: '15px',
+                padding: '10px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                width: '50em',
+                margin: '0 auto'
+            }}>
+                <h2>Search</h2>
+                <SearchBar setFilter={setFilter} />
+            </div>
             {console.log(filter)}
             {loading ? (
                 <p>Loading...</p>

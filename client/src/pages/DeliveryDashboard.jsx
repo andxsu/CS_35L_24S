@@ -55,12 +55,9 @@ export default function OrdersDashboard() {
 
 
 
-
-
-
     return (
         <div>
-            <h1>Your Orders</h1>
+            <h1>Orders In Progress</h1>
             {loading ? (
                 <p>Loading...</p>
             ) : myOrders.length > 0 ? (
@@ -88,7 +85,7 @@ export default function OrdersDashboard() {
         
 
 
-            <h1>Available Orders</h1>
+            {/* <h1>Available Orders</h1>
             {loading ? (
                 <p>Loading...</p>
             ) : orders.length > 0 ? (
@@ -110,7 +107,7 @@ export default function OrdersDashboard() {
                 </ul>
             ) : (
                 <p>No orders found</p>
-            )}
+            )} */}
 
             <h1>Completed Orders</h1>
             {loading ? (

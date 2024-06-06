@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
+import { SearchBar } from '../components/SearchBar';
 
 export default function OrdersDashboard() {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState("");
     const [myOrders, setMyOrders] = useState([])
     const [loading, setLoading] = useState(true);
     const {user, setUser, fetchUserData} = useContext(UserContext);
     const navigate = useNavigate();
     const [pastOrders, setPastOrders] = useState([])
+    const [filter, setFilter] = useState([])
     // console.log(user);
 
     const fetchAllOrders = async () => {
@@ -27,22 +29,29 @@ export default function OrdersDashboard() {
 
     useEffect(() => {
         fetchAllOrders().then((data) => {
-            const availableOrders = data.filter(order => !order.active && !!order.creator_address);
+
             
-            const curOrders = data.filter(order => !!order.deliverer_username && user && order.deliverer_username == user.username && !order.completed)
-            setMyOrders(curOrders);
+            const availableOrders = data.filter(order => !order.active && !!order.creator_address);
 
-
-            const prevOrders = data.filter(order => !!order.deliverer_username && user && order.deliverer_username && order.completed)
-            setPastOrders(prevOrders)
-
-
-           
             setOrders(availableOrders);
             
             setLoading(false);
         });
     }, [user]);
+
+    useEffect(() => {
+        fetchAllOrders().then((data) => {
+
+            
+            const availableOrders = data.filter(order => !order.active && !!order.creator_address);
+
+            const filteredOrders = availableOrders.filter(order => order.dining_hall.toLowerCase().includes(filter.toLowerCase()));
+
+            setOrders(filteredOrders);
+            
+            setLoading(false);
+        });
+    }, [filter]);
 
 
     if(!user || user.user_type === "Customer"){
@@ -61,6 +70,8 @@ export default function OrdersDashboard() {
     return (
         <div>
             <h1>Available Orders</h1>
+            <SearchBar setFilter={setFilter} />
+            {console.log(filter)}
             {loading ? (
                 <p>Loading...</p>
             ) : orders.length > 0 ? (

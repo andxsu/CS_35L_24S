@@ -12,19 +12,22 @@ const labelStyle = {
 };
 
 const inputStyle = {
-    fontSize: '18px',
-    padding: '10px',
-    width: '50%',
+    width: '100%',
+    maxWidth: '600px',
+    padding: '10px 20px',
+    border: '2px solid #ddd',
+    borderRadius: '25px',
+    fontSize: '16px',
+    outline: 'none',
     marginBottom: '20px',
-    boxSizing: 'border-box',
-    borderRadius: '10px',
-    backgroundColor: '#bec5d1'
+    transition: 'border-color 0.3s',
 };
 
 const buttonStyle = {
     fontSize: '18px',
     padding: '10px 20px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    marginBottom: '20px',
 };
 
 export default function Account() {
@@ -67,7 +70,7 @@ export default function Account() {
             margin: '0 auto'
           }}>
             <h1 style={{ marginBottom:'30px', fontSize: '40px', color: '#333' }}>
-              {`${user.username}`}'s account:
+              {`${user.username}`}'s account
             </h1>
             <h2 style={h2Style}>
               Update information:

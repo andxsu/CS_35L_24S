@@ -83,7 +83,6 @@ export default function OrdersDashboard() {
                 <h2>Search</h2>
                 <SearchBar setFilter={setFilter} />
             </div>
-            {console.log(filter)}
             {loading ? (
                 <p>Loading...</p>
             ) : orders.length > 0 ? (

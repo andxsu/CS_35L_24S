@@ -57,11 +57,11 @@ export default function Forgot(){
     return(
         <div>
             <form onSubmit={registerUser}>
-                <h1 style={labelStyle}>Password help</h1>
+                <h1 style={labelStyle}>Password Help</h1>
                 <label style={labelStyle}>Email</label> 
                 <input style={inputStyle} type = 'text' placeholder = 'Enter email...' value = {data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
                
-                <button style={buttonStyle} type = 'submit'>Rretrieve password</button>
+                <button style={buttonStyle} type = 'submit'>Retrieve Password</button>
             </form>
         </div>
     )

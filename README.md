@@ -11,10 +11,14 @@
 - [Authors](https://github.com/andxsu/CS_35L_24S/#authors)
 
 ## Features
-- **Custom Menus for BYO:** 
-- **Notifications:** 
+- **Buyer Features**
+    Buyer can place order that specifies the order's contents and dining hall as well as add any specific notes if desired. This will be put onto the Buyer's orders page, where they can see their current active orders.
+- **Custom Menus for BYO:**
+    Custom menus allow for specifying the buyer's order and for the deliverer to receive custom notes and delivery instructions.
 - **Order Status:** 
+    Order status pages such as Available Orders (deliverer view) and My Orders (buyer view) allow for buyers to see which orders they have put up and for deliverers to see which orders they have accepted.
 - **User Profiles:** 
+    The user profile page allows the user to update personal information for a smoother buying and delivering process. Users can update their phone number, email, username, password, and Venmo.
 
 ## Technologies
  - Javascript <img src="https://seeklogo.com/images/J/javascript-logo-8892AEFCAC-seeklogo.com.png" alt="javascript" width="30px">
@@ -66,4 +70,7 @@ npm run dev
 The frontend will be available on the local host port specified by vite.
 
 ## Authors
-_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, Aryan Mosavian Pour, 
+_BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona, Andrew Su, Aryan Mosavian Pour, Henry Shu, Matthew Schinsing
+
+## Tutorial References
+https://www.mongodb.com/resources/languages/mern-stack-tutorial

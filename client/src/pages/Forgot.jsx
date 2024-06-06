@@ -6,22 +6,28 @@ import {useNavigate} from 'react-router-dom';
 
 const labelStyle = {
     fontSize: '20px',
-    marginBottom: '10px',
-    display: 'block'
+    marginBottom: '20px',
+    display: 'block',
+    color: '#555'
 };
 
 const inputStyle = {
-    fontSize: '18px',
-    padding: '10px',
     width: '100%',
+    maxWidth: '600px',
+    padding: '10px 20px',
+    border: '2px solid #ddd',
+    borderRadius: '25px',
+    fontSize: '16px',
+    outline: 'none',
     marginBottom: '20px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
 };
+
 
 const buttonStyle = {
     fontSize: '18px',
     padding: '10px 20px',
-    cursor: 'pointer'
+    cursor: 'pointer',
 };
 
 export default function Forgot(){

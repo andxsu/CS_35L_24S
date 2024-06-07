@@ -31,4 +31,7 @@ router.get('/getallorders', getAllOrders);
 router.post('/togglefavorite', toggleFavoriteOrder);
 
 module.exports = router;
+<<<<<<< HEAD
 
+=======
+>>>>>>> Favorite_Test_Branch

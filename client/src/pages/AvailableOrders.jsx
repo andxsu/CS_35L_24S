@@ -73,7 +73,6 @@ export default function OrdersDashboard() {
             <div style={{
                 position: 'relative',
                 paddingBottom: '100px',
-                backgroundColor: 'white',
                 borderRadius: '15px',
                 padding: '10px',
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',

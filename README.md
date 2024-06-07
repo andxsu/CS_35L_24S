@@ -69,6 +69,8 @@ npm run dev
 ```
 The frontend will be available on the local host port specified by vite.
 
+#### USE EDUROAM OTHERWISE EVERYTHING WILL BREAK
+
 ## Authors
 _BruinBites_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. **Made by**: Kaena Kiakona (kaenakiakona@gmail.com), Andrew Su (), Aryan Mosavian Pour (), Henry Shu (henryhshu@gmail.com), Matthew Schinsing (mschinsing14@gmail.com)
 ## Tutorial References

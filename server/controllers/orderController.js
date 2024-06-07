@@ -115,10 +115,25 @@ const getSearchedOrders = async (req, res) => {
     }
 }
 
+const toggleFavoriteOrder = async (req, res) => {
+    try {
+        const {orderId} = req.body;
+        const order = await Order.findById(orderId);
+        order.favorite = !order.favorite;
+        await order.save();
+        res.json(order);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error');
+    }
+}
+
 module.exports = {
     createOrder,
     getOrder,
     getAllOrders,
     acceptOrder,
     completeOrder,
+    toggleFavoriteOrder,
 }
+

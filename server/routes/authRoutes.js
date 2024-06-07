@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const {test, registerUser, loginUser, getProfile, logoutUser, forgotPassword, updateUser, deleteUser} = require('../controllers/authController');
-const {createOrder, getOrder, getAllOrders, acceptOrder, completeOrder, getSearchedOrders} = require('../controllers/orderController');
+const {createOrder, getOrder, getAllOrders, acceptOrder, completeOrder, getSearchedOrders, toggleFavoriteOrder} = require('../controllers/orderController');
 //middleware
 router.use(
     cors({
@@ -28,6 +28,7 @@ router.post('/completeorder', completeOrder)
 router.get('/getorder', getOrder);
 router.get('/getallorders', getAllOrders);
 // router.get('/searchbar', getSearchedOrders)
-
+router.post('/togglefavorite', toggleFavoriteOrder);
 
 module.exports = router;
+

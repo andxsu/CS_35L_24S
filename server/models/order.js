@@ -9,16 +9,21 @@ const orderSchema = new Schema({
     creator_venmo: String,
     food_order: String,
     notes_for_deliverer: String,
-    active: { //true if chosen by a deliverer
+    active: {
         type: Boolean,
         default: false,
     },
-    completed: { //true if done
+    completed: {
         type: Boolean,
         default: false,
     },
-    deliverer_username: String
+    deliverer_username: String,
+    favorite: {  // <-- Added favorite field
+        type: Boolean,
+        default: false,
+    },
 });
 
 const OrderModel = mongoose.model('Order', orderSchema);
 module.exports = OrderModel;
+

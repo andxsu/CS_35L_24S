@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+// order.js:
+
+const mongoose = require('mongoose')
+const {Schema} = mongoose
 
 const orderSchema = new Schema({
     dining_hall: String,
@@ -9,19 +11,19 @@ const orderSchema = new Schema({
     creator_venmo: String,
     food_order: String,
     notes_for_deliverer: String,
-    active: { //true if chosen by a deliverer
+    active: {
         type: Boolean,
         default: false,
     },
-    completed: { //true if done
+    completed: {
         type: Boolean,
         default: false,
     },
-    favorite: { // true if marked as favorite
+    deliverer_username: String,
+    favorite: { 
         type: Boolean,
         default: false,
     },
-    deliverer_username: String
 });
 
 const OrderModel = mongoose.model('Order', orderSchema);

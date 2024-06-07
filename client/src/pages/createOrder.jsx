@@ -87,6 +87,7 @@ export default function CreateOrder() {
         }
     }, [user, navigate]);
 
+    const [isNew, setIsNew] = useState(true);
     const [menuItems, setMenuItems] = useState([]);
     const [favoriteOrders, setFavoriteOrders] = useState([]); // <-- Add state for favorite orders
 
@@ -104,19 +105,6 @@ export default function CreateOrder() {
     function updateForm(value) {
         setForm((prev) => ({ ...prev, ...value }));
         setBuildYourOwnForm((prev) => ({ ...prev, ...value }));
-    }
-
-    function handleFavoriteSelect(value) {
-        const selectedFavorite = favoriteOrders.find(order => order.food_order === value);
-        if (selectedFavorite) {
-            setForm({
-                ...form,
-                ...selectedFavorite.orderDetails,
-                dining_hall: selectedFavorite.dining_hall,
-                food_order: selectedFavorite.food_order,
-                favorite_order: selectedFavorite.food_order,
-            });
-        }
     }
 
     useEffect(() => {
@@ -365,7 +353,7 @@ export default function CreateOrder() {
                                     name="favoriteItem"
                                     className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     value={form.favorite_order}
-                                    onChange={(e) => handleFavoriteSelect(e.target.value)}
+                                    onChange={(e) => updateForm({ favorite_order: e.target.value })}
                                 >
                                     <option value="">Select a Favorite Item</option>
                                     {favoriteOrders.map((order, index) => (

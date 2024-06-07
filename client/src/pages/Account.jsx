@@ -43,9 +43,9 @@ export default function Account() {
 
     const updateUser = async (e) => {
         e.preventDefault();
-        const {username, password, phoneNum, address, venmo} = data;
+        const {username, email, password, phoneNum, address, venmo} = data;
         try {
-            const {data} = await axios.post('/update', {username, email, password, phoneNum, address, venmo});
+            const {data} = await axios.patch('/update', {username, email, password, phoneNum, address, venmo});
             if(data.error){
                 toast.error(data.error);
             }

@@ -42,7 +42,6 @@ export default function Forgot(){
             const {data} = await axios.post('/forgot', {email});
             if(data.error){
                 toast.error(data.error);
-                console.log("balls and dick");
             }
             else{
                 setData({});

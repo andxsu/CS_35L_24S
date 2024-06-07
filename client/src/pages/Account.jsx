@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const h2Style={ marginBottom: '20px', padding: '15px', fontSize: '30px', color: '#555' };
 

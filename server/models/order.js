@@ -20,11 +20,7 @@ const orderSchema = new Schema({
         default: false,
     },
     deliverer_username: String,
-<<<<<<< HEAD
-    favorite: {  // <-- Added favorite field
-=======
     favorite: { 
->>>>>>> Favorite_Test_Branch
         type: Boolean,
         default: false,
     },
@@ -32,4 +28,3 @@ const orderSchema = new Schema({
 
 const OrderModel = mongoose.model('Order', orderSchema);
 module.exports = OrderModel;
-

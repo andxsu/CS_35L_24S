@@ -30,7 +30,7 @@ export default function CreateOrder() {
         color: '#fff',
         borderRadius: '12px',
         textDecoration: 'none',
-        display: 'inline-block',
+        display: 'block',
         marginBottom: '10px',
         marginTop: '20px',
         padding: '9px 24px',
@@ -39,7 +39,8 @@ export default function CreateOrder() {
         backgroundColor: '#747bff',
         color: '#fff',
         textDecoration: 'none',
-        transition: 'background-color 0.3s ease'
+        transition: 'background-color 0.3s ease',
+        margin: '20px auto'
     };
 
     const labelStyle = {
@@ -48,6 +49,7 @@ export default function CreateOrder() {
         display: 'block',
         color: '#555',
         marginTop: '20px',
+        width: '100%'
     };
 
     const inputStyle = {
@@ -59,6 +61,7 @@ export default function CreateOrder() {
         fontSize: '10px',
         outline: 'none',
         boxSizing: 'border-box',
+        marginBottom: '10px'
     };
 
     const [form, setForm] = useState({
@@ -266,6 +269,7 @@ export default function CreateOrder() {
                     value={form.dining_hall}
                     onChange={(e) => updateForm({ dining_hall: e.target.value })}
                     style={inputStyle}
+                    required
                 >
                     <option value="">Select a dining hall</option>
                     <option value="Rendezvous East">Rendezvous East</option>

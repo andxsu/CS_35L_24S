@@ -86,7 +86,7 @@ export default function Register(){
       
             <label style={labelStyle}>User Type</label>
             <select 
-            name='userType' value={data.user_type} onChange={(e) => setData({ ...data, user_type: e.target.value })} style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc', color:'grey' }}>
+            name='userType' value={data.user_type} onChange={(e) => setData({ ...data, user_type: e.target.value })} style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc', color:'grey' }} required>
                 <option value='' disabled>Select user type</option>
                 <option value='Customer'>Customer</option>
                 <option value='Deliverer'>Deliverer</option>

@@ -180,9 +180,7 @@ const updateUser = async(req, res) => {
     try {
         //Check if user exists
         const query = await User.findOne({email: req.body.email});
-        console.log(query);
         const userID = query._id.toString();
-        console.log(query);
         if(!query){
             return res.json({error: "No user found"});
         }
@@ -196,7 +194,7 @@ const updateUser = async(req, res) => {
                 venmo: req.body.venmo
             });
             newUser = await User.findOne({_id: userID})
-            console.log(newUser)
+            
             jwt.sign({email: newUser.email, id: userID, username: newUser.username, active_orders: newUser.active_orders, user_type: newUser.user_type, phoneNum: newUser.phoneNum, address: newUser.address, venmo: newUser.venmo}, process.env.JWT_SECRET, {}, (err, token) => {
                 if(err) throw err;
                 res.cookie('token', token).json(newUser);

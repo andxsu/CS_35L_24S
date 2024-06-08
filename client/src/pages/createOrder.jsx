@@ -16,6 +16,8 @@ import {toast} from 'react-hot-toast';
 import axios from 'axios';
 import {UserContext} from '../../context/userContext';
 
+
+
 export default function CreateOrder() {
     const params = useParams();
     const navigate = useNavigate();
@@ -87,7 +89,7 @@ export default function CreateOrder() {
         bagel: '',
         active: true,
         out_for_delivery: false,
-        favorite_order: '', // <-- Add favorite_order field
+        favorite_order: '',
     });
 
     useEffect(() => {
@@ -95,13 +97,13 @@ export default function CreateOrder() {
             setForm(prevData => ({
                 ...prevData,
                 creator_username: user.username,
-            }))
+            }));
         }
     }, [user, navigate]);
 
     const [isNew, setIsNew] = useState(true);
     const [menuItems, setMenuItems] = useState([]);
-    const [favoriteOrders, setFavoriteOrders] = useState([]); // <-- Add state for favorite orders
+    const [favoriteOrders, setFavoriteOrders] = useState([]);
 
     const buildYourOwnItems = [
         "Build your own bowl",
@@ -109,7 +111,12 @@ export default function CreateOrder() {
         "Build your own burrito bowl",
         "Build your own pizza",
         "Build your own sandwich",
-        "Build your own study salad", "Build your own bagel", "Build your own breakfast skillet", "Build your own tacos", "Build your own taco salad", "Build your own Rende West salad"
+        "Build your own study salad",
+        "Build your own bagel",
+        "Build your own breakfast skillet",
+        "Build your own tacos",
+        "Build your own taco salad",
+        "Build your own Rende West salad"
     ];
 
     const [buildYourOwnForm, setBuildYourOwnForm] = useState({});
@@ -146,7 +153,20 @@ export default function CreateOrder() {
         }
     }, [user]);
 
-    const createorder = async (e) => {
+    useEffect(() => {
+        if (form.favorite_order) {
+            const selectedFavorite = favoriteOrders.find(order => order.food_order === form.favorite_order);
+            if (selectedFavorite) {
+                setForm(prevForm => ({
+                    ...prevForm,
+                    dining_hall: selectedFavorite.dining_hall,
+                    food_order: selectedFavorite.food_order,
+                }));
+            }
+        }
+    }, [form.favorite_order, favoriteOrders]);
+
+    const createOrder = async (e) => {
         e.preventDefault();
         const concatenatedOrder = [
             form.protein && `Protein: ${form.protein}`,
@@ -170,7 +190,7 @@ export default function CreateOrder() {
             form.eggs && `Eggs: ${form.eggs}`,
             form.bagel && `Bagel: ${form.bagel}`,
         ].filter(Boolean).join(', ').replace(/[\r\n\s]{2,}/gm, " ");
-
+        
         const isBuildYourOwn = buildYourOwnItems.includes(form.food_order.trim());
 
         const {
@@ -206,7 +226,7 @@ export default function CreateOrder() {
         } catch (error) {
             console.error('Error creating order:', error);
         }
-    }
+    };
 
     function renderBuildYourOwnForm() {
         switch (form.food_order) {
@@ -226,187 +246,78 @@ export default function CreateOrder() {
                 return <BuildYourOwnSandwich form={buildYourOwnForm} updateForm={updateForm} />;
             case "Build your own study salad":
                 return <BuildYourOwnStudySalad form={buildYourOwnForm} updateForm={updateForm} />;
-            case "Build your own breakfast skillet":
-                return <BuildYourOwnBreakfastSkillet form={buildYourOwnForm} updateForm={updateForm} />;
             case "Build your own bagel":
                 return <BuildYourOwnBagel form={buildYourOwnForm} updateForm={updateForm} />;
+            case "Build your own breakfast skillet":
+                return <BuildYourOwnBreakfastSkillet form={buildYourOwnForm} updateForm={updateForm} />;
             default:
                 return null;
         }
     }
 
     return (
-        <>
-            <form onSubmit={createorder} className="border rounded-lg overflow-hidden p-4">
-                <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-slate-900/10 pb-12 md:grid-cols-2">
-                    <div>
-                        <h2 className="text-base font-semibold leading-7 text-slate-900">
-                            Place Your Order
-                        </h2>
-                    </div>
+        <div>
+            <h2>Create Order</h2>
+            <form onSubmit={createOrder}>
+                <label style={labelStyle} htmlFor="dining_hall">Dining Hall</label>
+                <select
+                    id="dining_hall"
+                    name="dining_hall"
+                    value={form.dining_hall}
+                    onChange={(e) => updateForm({ dining_hall: e.target.value })}
+                    style={inputStyle}
+                >
+                    <option value="">Select a dining hall</option>
+                    <option value="Rendezvous East">Rendezvous East</option>
+                    <option value="Rendezvous West">Rendezvous West</option>
+                    <option value="The Study">The Study</option>
+                    <option value="The Drey">The Drey</option>
+                    <option value="Bruin Cafe">Bruin Cafe</option>
+                </select>
 
-                    <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
-                        <div>
-                            <fieldset className="mt-4">
-                                <legend>Location</legend>
-                                <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-                                    <div className="flex items-center">
-                                        <input
-                                            id="dhallRendeEast"
-                                            name="diningHallOptions"
-                                            type="radio"
-                                            value="Rendezvous East"
-                                            className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                                            checked={form.dining_hall === "Rendezvous East"}
-                                            onChange={(e) => updateForm({ dining_hall: e.target.value })}
-                                        />
-                                        <label
-                                            htmlFor="dhallRendeEast"
-                                            className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                                        >
-                                            Rende East &nbsp;
-                                        </label>
-                                        <input
-                                            id="dhallRendeWest"
-                                            name="diningHallOptions"
-                                            type="radio"
-                                            value="Rendezvous West"
-                                            className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                                            checked={form.dining_hall === "Rendezvous West"}
-                                            onChange={(e) => updateForm({ dining_hall: e.target.value })}
-                                        />
-                                        <label
-                                            htmlFor="dhallRendeWest"
-                                            className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                                        >
-                                            Rende West &nbsp;
-                                        </label>
-                                        <input
-                                            id="dhallStudy"
-                                            name="diningHallOptions"
-                                            type="radio"
-                                            value="The Study"
-                                            className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                                            checked={form.dining_hall === "The Study"}
-                                            onChange={(e) => updateForm({ dining_hall: e.target.value })}
-                                        />
-                                        <label
-                                            htmlFor="dhallStudy"
-                                            className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                                        >
-                                            The Study &nbsp;
-                                        </label>
-                                        <input
-                                            id="dhallBcaf"
-                                            name="diningHallOptions"
-                                            type="radio"
-                                            value="Bruin Cafe"
-                                            className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                                            checked={form.dining_hall === "Bruin Cafe"}
-                                            onChange={(e) => updateForm({ dining_hall: e.target.value })}
-                                        />
-                                        <label
-                                            htmlFor="dhallBcaf"
-                                            className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                                        >
-                                            Bruin Cafe &nbsp;
-                                        </label>
-                                        <input
-                                            id="dhallTheDrey"
-                                            name="diningHallOptions"
-                                            type="radio"
-                                            value="The Drey"
-                                            className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                                            checked={form.dining_hall === "The Drey"}
-                                            onChange={(e) => updateForm({ dining_hall: e.target.value })}
-                                        />
-                                        <label
-                                            htmlFor="dhallTheDrey"
-                                            className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                                        >
-                                            The Drey
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div className="sm:col-span-4">
-                            <label htmlFor="menuItem" className="block text-sm font-medium leading-6 text-slate-900" style={labelStyle}>
-                                Menu Item
-                            </label>
-                            <div className="mt-2">
-                                <select
-                                    id="menuItem"
-                                    name="menuItem"
-                                    className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    value={form.food_order}
-                                    onChange={(e) => updateForm({ food_order: e.target.value })}
-                                    disabled={!form.dining_hall}
-                                >
-                                    <option value="">
-                                        {form.food_order ? form.food_order : "Select a Menu Item"}
-                                    </option>
-                                    {menuItems.map((item, index) => (
-                                        <option key={index} value={item}>
-                                            {item}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="sm:col-span-4">
-                            {renderBuildYourOwnForm()}
-                        </div>
-                        <div className="sm:col-span-4">
-                            <label htmlFor="favoriteItem" className="block text-sm font-medium leading-6 text-slate-900" style={labelStyle}>
-                                Favorite Items
-                            </label>
-                            <div className="mt-2">
-                                <select
-                                    id="favoriteItem"
-                                    name="favoriteItem"
-                                    className="block w-full mt-1 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    value={form.favorite_order}
-                                    onChange={(e) => updateForm({ favorite_order: e.target.value })}
-                                >
-                                    <option value="">Select a Favorite Item</option>
-                                    {favoriteOrders.map((order, index) => (
-                                        <option key={index} value={order.food_order}>
-                                            {order.food_order}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="sm:col-span-4">
-                            <label htmlFor="notes" style={labelStyle} className="block text-sm font-medium leading-6 text-slate-900">
-                                Notes for deliverer
-                            </label>
-                            <div className="mt-2">
-                                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                    <input
-                                        style={inputStyle}
-                                        type="text"
-                                        name="notes"
-                                        id="notes"
-                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="Leave it at my door..."
-                                        value={form.notes_for_deliverer}
-                                        onChange={(e) => updateForm({ notes_for_deliverer: e.target.value })}
+                <label style={labelStyle} htmlFor="food_order">Food Order</label>
+                <select
+                    id="food_order"
+                    name="food_order"
+                    value={form.food_order}
+                    onChange={(e) => updateForm({ food_order: e.target.value })}
+                    style={inputStyle}
+                >
+                    <option value="">Select a food order</option>
+                    {menuItems.map((item, index) => (
+                        <option key={index} value={item}>{item}</option>
+                    ))}
+                </select>
 
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input
-                    type="submit"
-                    value="Save"
-                    style={buttonStyle}
+                {buildYourOwnItems.includes(form.food_order) && renderBuildYourOwnForm()}
+
+                <label style={labelStyle} htmlFor="favorite_order">Favorite Orders</label>
+                <select
+                    id="favorite_order"
+                    name="favorite_order"
+                    value={form.favorite_order}
+                    onChange={(e) => updateForm({ favorite_order: e.target.value })}
+                    style={inputStyle}
+                >
+                    <option value="">Select a favorite order</option>
+                    {favoriteOrders.map((order, index) => (
+                        <option key={index} value={order.food_order}>{order.food_order}</option>
+                    ))}
+                </select>
+
+                <label style={labelStyle} htmlFor="notes_for_deliverer">Notes for Deliverer</label>
+                <textarea
+                    id="notes_for_deliverer"
+                    name="notes_for_deliverer"
+                    value={form.notes_for_deliverer}
+                    onChange={(e) => updateForm({ notes_for_deliverer: e.target.value })}
+                    style={{ ...inputStyle, height: '100px' }}
                 />
+
+                <button type="submit" style={buttonStyle}>Create Order</button>
             </form>
-        </>
+        </div>
     );
 }
+
 

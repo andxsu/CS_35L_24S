@@ -61,7 +61,7 @@ const acceptOrder = async (req, res) => {
 
         user.active_orders.push(order);
         await user.save()
-        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type, phoneNum: user.phoneNum, address: user.address, venmo: user.venmo}, process.env.JWT_SECRET, {}, (err, token) => {
             if(err) throw err;
             res.cookie('token', token).json({user: user, order: order});
 
@@ -81,7 +81,7 @@ const completeOrder = async (req, res) => {
 
         const user = await User.findOne({username: order.deliverer_username});
 
-        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
+        jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type, phoneNum: user.phoneNum, address: user.address, venmo: user.venmo}, process.env.JWT_SECRET, {}, (err, token) => {
             if(err) throw err;
             res.cookie('token', token).json({user: user, order: order});
 

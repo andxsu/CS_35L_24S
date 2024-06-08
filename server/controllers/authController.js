@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
         const match = await comparePassword(hashPassword(password), user.password);
         if(match){
             // res.json("Success!")
-            jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type}, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({email: user.email, id: user._id, username: user.username, active_orders: user.active_orders, user_type: user.user_type, phoneNum: user.phoneNum, address: user.address, venmo: user.venmo}, process.env.JWT_SECRET, {}, (err, token) => {
                 if(err) throw err;
                 res.cookie('token', token).json(user)
             })
@@ -180,48 +180,32 @@ const updateUser = async(req, res) => {
     try {
         //Check if user exists
         const query = await User.findOne({email: req.body.email});
+        console.log(query);
+        const userID = query._id.toString();
+        console.log(query);
         if(!query){
             return res.json({error: "No user found"});
         }
-        //Check if passwords match
-        const match = await comparePassword(hashPassword(req.body.password.toString()), query.password.toString());
-        if(match){
-            
-            let updates = {$set:{}};
-            if(req.body.new_password){
-                updates = {$set: {
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: hashPassword(req.body.new_password),
-                    address: req.body.address,
-                    phoneNum: req.body.phoneNum,
-                    venmo: req.body.venmo,
-                }};
-            }
-            else{
-                updates = {$set: {
-                    username: req.body.username,
-                    email: req.body.email,
-                    address: req.body.address,
-                    phoneNum: req.body.phoneNum,
-                    venmo: req.body.venmo,
-                }};
-            }
 
-            try{
-                await User.updateOne({email: query.email}, updates);
-                jwt.sign({email: req.body.email, id: req.body._id, username: req.body.username, active_orders: req.body.active_orders}, process.env.JWT_SECRET, {}, (err, token) => {
-                    if(err) throw err;
-                    res.cookie('token', token).json(query);
-                });
-            }
-            catch (error){
-                return res.status(500).send("w h a t?????,?? " + error);
-            }
+        try{
+            await User.findByIdAndUpdate(userID, {
+                username: req.body.username,
+                email: req.body.email,
+                address: req.body.address,
+                phoneNum: req.body.phoneNum,
+                venmo: req.body.venmo
+            });
+            newUser = await User.findOne({_id: userID})
+            console.log(newUser)
+            jwt.sign({email: newUser.email, id: userID, username: newUser.username, active_orders: newUser.active_orders, user_type: newUser.user_type, phoneNum: newUser.phoneNum, address: newUser.address, venmo: newUser.venmo}, process.env.JWT_SECRET, {}, (err, token) => {
+                if(err) throw err;
+                res.cookie('token', token).json(newUser);
+            });
         }
-        if(!match){
-            res.json({error: "Incorrect password"})
+        catch (error){
+            return res.status(500).send("w h a t?????,?? " + error);
         }
+    
         
     } catch (error) {
         res.status(500).send(error.message);

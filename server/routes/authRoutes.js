@@ -18,7 +18,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
 router.post('/forgot', forgotPassword)
-router.patch('/update', updateUser);
+router.post('/update', updateUser);
 router.delete('/delete', deleteUser);
 
 //order routes

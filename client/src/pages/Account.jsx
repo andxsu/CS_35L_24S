@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useNavigate, useParams } from "react-router-dom";
 
 const h2Style={ marginBottom: '20px', padding: '15px', fontSize: '30px', color: '#555' };
 
@@ -32,27 +33,41 @@ const buttonStyle = {
 };
 
 export default function Account() {
-    const {user} = useContext(UserContext);
+    const {user, fetchUserData} = useContext(UserContext);
+    let navigate = useNavigate();
     const [data, setData] = useState({
         username: '',
-        email: user.email,
-        password: '',
+        email: '',
         phoneNum: '',
         address: '',
         venmo: '',
     });
 
+    useEffect(() => {
+        // Initialize the form with the user's current data
+        if (user) {
+            setData({
+                username: user.username,
+                email: user.email,
+                phoneNum: user.phoneNum,
+                address: user.address,
+                venmo: user.venmo
+            });
+        }
+    }, [user]);
+
     const updateUser = async (e) => {
         e.preventDefault();
-        const {username, email, password, phoneNum, address, venmo} = data;
+        const {username, email, phoneNum, address, venmo} = data;
         try {
-            const {data} = await axios.patch('/update', {username, email, password, phoneNum, address, venmo});
+            const {data} = await axios.post('/update', {username, email, phoneNum, address, venmo});
             if(data.error){
                 toast.error(data.error);
             }
             else{
-                setData({});
                 toast.success('Update success!');
+                fetchUserData();
+                navigate('/');
             }
         } catch (error) {
             console.log(error);  
@@ -80,9 +95,6 @@ export default function Account() {
             <form onSubmit={updateUser}>
                 <label style={labelStyle}>Username</label> 
                 <input style={inputStyle} type = 'text' placeholder = {user.username} value = {data.username} onChange={(e) => setData({...data, username: e.target.value})}/>
-                
-                <label style={labelStyle}>Password</label> 
-                <input style={inputStyle} type= 'password' placeholder = {user.password} value = {data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
                
                 <label style={labelStyle}>Phone number</label> 
                 <input style={inputStyle} type = 'text' placeholder = {user.phoneNum} value = {data.phoneNum} onChange={(e) => setData({...data, phoneNum: e.target.value})}/>

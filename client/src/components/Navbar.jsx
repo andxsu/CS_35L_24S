@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 export default function Navbar() {
-    const { user, logout } = useContext(UserContext);
+    const { user, fetchUserData, logout } = useContext(UserContext);
+    
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
     
     const navStyle = {
         zIndex: 1000,
